@@ -21,20 +21,33 @@
         </script>
     </head>
     <body>
-        {include file="views/navbar.tpl"}
+        <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand new-li">中佑訂便當</a>
+                </div>
+                <div id=navbar class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="new-li"><a>Welcome!</a>
+                        <li class="new-li"><a href="/Bento/Home/signUp">註冊</a>
+                        <li class="new-li"><a href="/Bento/Home/signIn">登入</a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
 	    <div class="modal-dialog" style="padding-top:200px">
 			<div class="loginmodal-container">
 				<h1>登入</h1><br>
-			  <form action="signIn" method="post" name="reg">
-				<input type="text" name="userName" placeholder="Username">
-				<input type="password" name="passWord" placeholder="Password">
-				<input type="button" onClick="check()" class="btn btn-info btn-lg" value="登入">
-			  </form>
+    			<form action="signIn" method="post" name="reg">
+    				<input type="text" name="userName" placeholder="Username">
+    				<input type="password" name="passWord" placeholder="Password">
+    				<input type="button" onClick="check()" class="btn btn-info btn-lg" value="登入">
+    			</form>
 
-			  <div class="login-help">
-				<a href="/Bento/Home/signUp" style="font-size:20px">註冊</a>
-			  </div>
+    			<div class="login-help">
+    				<a href="/Bento/Home/signUp" style="font-size:20px">註冊</a>
+    			</div>
 			</div>
 		</div>
 

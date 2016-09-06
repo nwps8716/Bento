@@ -94,3 +94,18 @@
 .login-help{
   font-size: 12px;
 }
+
+.box {
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+
+.shoplabel{
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 50px;
+    float: left;
+}

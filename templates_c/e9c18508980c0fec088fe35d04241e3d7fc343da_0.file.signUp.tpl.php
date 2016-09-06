@@ -1,27 +1,26 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-06 04:19:12
+/* Smarty version 3.1.30, created on 2016-09-06 08:26:55
   from "/home/ubuntu/workspace/Bento/views/signUp.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57ce43c0485400_21741062',
+  'unifunc' => 'content_57ce7dcfc7eb08_28012738',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e9c18508980c0fec088fe35d04241e3d7fc343da' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/signUp.tpl',
-      1 => 1473135506,
+      1 => 1473150405,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57ce43c0485400_21741062 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57ce7dcfc7eb08_28012738 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,9 +56,20 @@ function content_57ce43c0485400_21741062 (Smarty_Internal_Template $_smarty_tpl)
 >
     </head>
     <body>
-        <?php $_smarty_tpl->_subTemplateRender("file:views/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
-
+        <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand new-li">中佑訂便當</a>
+                </div>
+                <div id=navbar class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="new-li"><a>Welcome!</a>
+                        <li class="new-li"><a href="/Bento/Home/signUp">註冊</a>
+                        <li class="new-li"><a href="/Bento/Home/signIn">登入</a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
 	    <div class="modal-dialog" style="padding-top:200px">
 			<div class="loginmodal-container">
