@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-06 08:26:51
+/* Smarty version 3.1.30, created on 2016-09-12 01:45:16
   from "/home/ubuntu/workspace/Bento/views/signIn.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57ce7dcbbef7b6_98280248',
+  'unifunc' => 'content_57d608ac873af8_93653174',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a92d0250fd0b924965284b662f55e59fea5787a' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/signIn.tpl',
-      1 => 1473150395,
+      1 => 1473644715,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_57ce7dcbbef7b6_98280248 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57d608ac873af8_93653174 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,8 +55,8 @@ function content_57ce7dcbbef7b6_98280248 (Smarty_Internal_Template $_smarty_tpl)
                 <div id=navbar class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="new-li"><a>Welcome!</a>
-                        <li class="new-li"><a href="/Bento/Home/signUp">註冊</a>
-                        <li class="new-li"><a href="/Bento/Home/signIn">登入</a>
+                        <li class="new-li"><a href="/Bento/Member/signUp">註冊</a>
+                        <li class="new-li"><a href="/Bento/Member/signIn">登入</a>
                     </ul>
                 </div>
             </div>
@@ -72,19 +72,27 @@ function content_57ce7dcbbef7b6_98280248 (Smarty_Internal_Template $_smarty_tpl)
     			</form>
 
     			<div class="login-help">
-    				<a href="/Bento/Home/signUp" style="font-size:20px">註冊</a>
+    				<a href="/Bento/Member/signUp" style="font-size:20px">註冊</a>
     			</div>
 			</div>
 		</div>
 
-        <?php if (isset($_smarty_tpl->tpl_vars['message']->value)) {?>
+        <?php ob_start();
+if (isset($_smarty_tpl->tpl_vars['message']->value)) {
+$_prefixVariable1=ob_get_clean();
+echo $_prefixVariable1;?>
+
             <?php echo '<script'; ?>
 >
                 alert('<?php echo $_smarty_tpl->tpl_vars['message']->value;?>
 ');
             <?php echo '</script'; ?>
 >
-        <?php }?>
+        <?php ob_start();
+}
+$_prefixVariable2=ob_get_clean();
+echo $_prefixVariable2;?>
+
 
     </body>
 </html><?php }

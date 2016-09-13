@@ -28,7 +28,7 @@
         </script>
     </head>
     <body>
-        {include file="views/navbar.tpl"}
+        {{include file = "views/navbar.tpl"}}
 
         <div class="container" style="margin-top:150px">
             <div class="row">
@@ -45,13 +45,13 @@
                         <div class="form-group row">
                             <label for="example-search-input" class="shoplabel col-form-label">地址:</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="adress" placeholder="台中市西屯區文心路一段888號" name="shopAddress">
+                                <input class="form-control" type="text" placeholder="台中市西屯區文心路一段888號" name="shopAddress">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-tel-input" class="shoplabel col-form-label">電話:</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="tel" placeholder="04-2210-0122" name="shopPhone">
+                                <input class="form-control" type="text" placeholder="04-2210-0122" name="shopPhone">
                             </div>
                         </div>
                         <div style="margin-left:100px">
@@ -67,12 +67,19 @@
                             </table>
                             <input type="button" value="+" onclick="add_new_data()">
                             <input type="button" value="-" onclick="remove_data()">
-                            <br></br><input type="button" onClick="check()" class="btn btn-info btn-lg" value="送出">
+                            <input type="hidden" name="userName" value="{$userName}">
+                            <br></br><input type="button" onClick="check()" class="btn btn-primary btn-lg" value="送出">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        {{if isset($message)}}
+            <script>
+                alert('{$message}');
+            </script>
+        {{/if}}
 
     </body>
 </html>

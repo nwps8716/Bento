@@ -8,7 +8,7 @@ class App
         $url = $this->parseUrl();
 
         if (is_null($url)) {
-            header("Location:Home/signIn");
+            header("Location:Member/signIn");
             exit;
         }
 
@@ -24,7 +24,7 @@ class App
         $methodName = isset($url[1]) ? $url[1] : "index";
 
         if (!method_exists($controller, $methodName)) {
-            header("Location:Home/signIn");
+            header("Location:Member/signIn");
             exit;
         }
 

@@ -38,8 +38,8 @@
                 <div id=navbar class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="new-li"><a>Welcome!</a>
-                        <li class="new-li"><a href="/Bento/Home/signUp">註冊</a>
-                        <li class="new-li"><a href="/Bento/Home/signIn">登入</a>
+                        <li class="new-li"><a href="/Bento/Member/signUp">註冊</a>
+                        <li class="new-li"><a href="/Bento/Member/signIn">登入</a>
                     </ul>
                 </div>
             </div>
@@ -56,16 +56,16 @@
 			    </form>
 
 			    <div class="login-help">
-			        <a href="/Bento/Home/signIn" style="font-size:20px">登入</a>
+			        <a href="/Bento/Member/signIn" style="font-size:20px">登入</a>
 			    </div>
 			</div>
 		</div>
 
-        {if isset($message) }
+        {{if isset($message)}}
             <script>
                 alert('{$message}');
             </script>
-        {/if}
+        {{/if}}
 
     </body>
 </html>

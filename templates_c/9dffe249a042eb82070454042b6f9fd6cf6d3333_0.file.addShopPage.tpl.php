@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-06 08:54:41
+/* Smarty version 3.1.30, created on 2016-09-12 01:44:22
   from "/home/ubuntu/workspace/Bento/views/addShopPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57ce8451271dc0_57947813',
+  'unifunc' => 'content_57d60876d1ca54_70521050',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9dffe249a042eb82070454042b6f9fd6cf6d3333' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/addShopPage.tpl',
-      1 => 1473152076,
+      1 => 1473644662,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57ce8451271dc0_57947813 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57d60876d1ca54_70521050 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,8 +57,10 @@ function content_57ce8451271dc0_57947813 (Smarty_Internal_Template $_smarty_tpl)
 >
     </head>
     <body>
-        <?php $_smarty_tpl->_subTemplateRender("file:views/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+        <?php ob_start();
+$_smarty_tpl->_subTemplateRender("file:views/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+$_prefixVariable1=ob_get_clean();
+echo $_prefixVariable1;?>
 
 
         <div class="container" style="margin-top:150px">
@@ -76,13 +78,13 @@ function content_57ce8451271dc0_57947813 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="form-group row">
                             <label for="example-search-input" class="shoplabel col-form-label">地址:</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="adress" placeholder="台中市西屯區文心路一段888號" name="shopAddress">
+                                <input class="form-control" type="text" placeholder="台中市西屯區文心路一段888號" name="shopAddress">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-tel-input" class="shoplabel col-form-label">電話:</label>
                             <div class="col-xs-10">
-                                <input class="form-control" type="tel" placeholder="04-2210-0122" name="shopPhone">
+                                <input class="form-control" type="text" placeholder="04-2210-0122" name="shopPhone">
                             </div>
                         </div>
                         <div style="margin-left:100px">
@@ -98,12 +100,31 @@ function content_57ce8451271dc0_57947813 (Smarty_Internal_Template $_smarty_tpl)
                             </table>
                             <input type="button" value="+" onclick="add_new_data()">
                             <input type="button" value="-" onclick="remove_data()">
-                            <br></br><input type="button" onClick="check()" class="btn btn-info btn-lg" value="送出">
+                            <input type="hidden" name="userName" value="<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
+">
+                            <br></br><input type="button" onClick="check()" class="btn btn-primary btn-lg" value="送出">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <?php ob_start();
+if (isset($_smarty_tpl->tpl_vars['message']->value)) {
+$_prefixVariable2=ob_get_clean();
+echo $_prefixVariable2;?>
+
+            <?php echo '<script'; ?>
+>
+                alert('<?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+');
+            <?php echo '</script'; ?>
+>
+        <?php ob_start();
+}
+$_prefixVariable3=ob_get_clean();
+echo $_prefixVariable3;?>
+
 
     </body>
 </html>
