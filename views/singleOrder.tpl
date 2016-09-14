@@ -31,7 +31,7 @@
                                         <th>備註</th>
                                     </tr>
                                 </thead>
-                                <div id='hidden' class="display">{{$orderData[0]}}</div>  <!--將值傳給js檔使用-->
+                                <div id='orderId' class="display">{{$orderData[0]}}</div>  <!--將值傳給js檔使用-->
                                 <tbody>
                                     <tr>
                                         <td>{{$orderData[1]}}</td>
@@ -51,14 +51,23 @@
                                         <th>訂購人</th>
                                         <th>訂購項目</th>
                                         <th>單價</th>
+                                        <th>取消餐點</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {{foreach from = $allPurchaser item = purchaser}}
                                     <tr>
-                                        <td>{{$purchaser[0]}}</td>
-                                        <td>{{$purchaser[1]}}</td>
                                         <td>{{$purchaser[2]}}</td>
+                                        <td>{{$purchaser[3]}}</td>
+                                        <td>{{$purchaser[4]}}</td>
+                                        <td>
+                                            <form action="cancelOrderItem" method="post">
+                                                <input type="hidden" name="orderId" value="{{$orderId}}">
+                                                <input type="hidden" name="singleItemID" value="{{$purchaser[0]}}">
+                                                <input type="submit" class="btn-primary" value="取消">
+                                                <div id='singleItemID' class="display">{{$purchaser[0]}}</div>      <!--將值傳給js檔使用-->
+                                            </form>
+                                        </td>
                                     </tr>
                                     {{/foreach}}
                                 </tbody>
@@ -74,7 +83,7 @@
 
                             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" id="listbytotal">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title" id="myModalLabel">各品項總數量</h4>

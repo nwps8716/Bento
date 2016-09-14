@@ -184,8 +184,8 @@ class HomeController extends Controller
         $allData = count($getPurchaser);
 
         for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 3 ; $y++) {
-                $allPurchaser[$x][$y] = $getPurchaser[$x][$y + 2];              //訂購資料
+            for ($y = 0 ; $y < 5 ; $y++) {
+                $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
             }
             $total = $total + $getPurchaser[$x][4];                             //總金額
         }
@@ -211,7 +211,7 @@ class HomeController extends Controller
         $this->smarty->display('../Bento/views/singleOrder.tpl');
     }
 
-    public function renew()                                                     //AJAX資料更新
+    public function renewOrderStatus()                                          //訂購狀況AJAX資料更新
     {
         $this->model("Bentodb");
         $usedb = new Bentodb();
@@ -235,6 +235,25 @@ class HomeController extends Controller
         echo json_encode($allPurchaser);
     }
 
+    public function renewItemCount()                                            //品項統計AJAX資料更新
+    {
+        $this->model("Bentodb");
+        $usedb = new Bentodb();
+
+        $orderId = $_GET['orderId'];
+
+        $diffItem = $usedb->differentItem($orderId);
+        $diffcount = count($diffItem);
+
+        for ($d = 0 ; $d < $diffcount ; $d++) {                                 //各品項統計
+            $singleItem[$d] = $usedb->countByItem($orderId, $diffItem[$d][0]);
+            $countByItem[$d][0] = $diffItem[$d][0];                             //各品項名稱
+            $countByItem[$d][1] = count($singleItem[$d]);                       //各品項數量
+        }
+
+        echo json_encode($countByItem);
+    }
+
     public function uploadPurchaser()
     {
         $this->model("Bentodb");
@@ -255,6 +274,23 @@ class HomeController extends Controller
         $_SESSION['alert'] = "訂購成功";
         header("Location:/Bento/Home/singleOrder?orderId=$orderId");
         exit;
+    }
+
+    public function cancelOrderItem()                                           //取消訂單
+    {
+        $this->model("Bentodb");
+        $usedb = new Bentodb();
+
+        $orderId = $_POST['orderId'];
+        $singleItemID = $_POST['singleItemID'];
+
+        $result = $usedb->deleteSingleItem($singleItemID);
+
+        if ($result > 0) {
+            $_SESSION['alert'] = "取消成功";
+            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+            exit;
+        }
     }
 
 }

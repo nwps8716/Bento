@@ -275,4 +275,16 @@ class Bentodb
         return $result;
     }
 
+    public function deleteSingleItem($singleItemID)
+    {
+        $sql = "DELETE FROM `Purchaser` WHERE `ID` = :singleItemID";
+        $stmt = $this->dbcon->prepare($sql);
+
+        $stmt->bindValue(':singleItemID',$singleItemID);
+
+        $result = $stmt->execute();
+        $this->dbpdo->closeConnection();
+
+        return $result;
+    }
 }
