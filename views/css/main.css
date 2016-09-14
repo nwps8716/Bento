@@ -137,3 +137,38 @@
   float:right;
   border-radius: 10px;
 }
+
+.test-align-center
+{
+  text-align: center;
+}
+
+.mar-top150
+{
+  margin-top: 150px;
+}
+
+.addshopdiv7
+{
+  margin-left: 100px;
+}
+
+.padd-top200
+{
+  padding-top:200px;
+}
+
+.fontsize20
+{
+  font-size:20px;
+}
+
+.clearboth
+{
+  clear:both;
+}
+
+.display
+{
+  display: none;
+}

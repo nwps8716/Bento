@@ -5,16 +5,18 @@
         <title>訂便當系統</title>
 
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../views/css/test.css" rel="stylesheet">
-        <script src="../views/js/main.js"></script>
+        <link href="../views/css/main.css" rel="stylesheet">
+        {{if isset($message)}}
+            <script> alert('{$message}'); </script>
+        {{/if}}
     </head>
     <body>
         {{include file = "views/navbar.tpl"}}
 
-        <div class="container" style="margin-top:150px">
+        <div class="container mar-top150">
             <div class="row">
                 <div class="box">
-                    <legend style="text-align: center">所有訂單</legend>
+                    <legend class="test-align-center">所有訂單</legend>
 
                     <table class="table">
                         <thead>
@@ -40,12 +42,5 @@
                 </div>
             </div>
         </div>
-
-        {{if isset($message)}}
-            <script>
-                alert('{$message}');
-            </script>
-        {{/if}}
-
     </body>
 </html>

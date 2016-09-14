@@ -5,20 +5,11 @@
         <title>訂便當系統</title>
 
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../views/css/test.css" rel="stylesheet">
-
-        <script type="text/javascript">
-            function check()
-            {
-            	if(reg.userName.value == "") {
-            		alert("請輸入帳號");
-            	} else if(reg.passWord.value == "") {
-            		alert("請輸入密碼");
-            	} else {
-            	    reg.submit();
-            	}
-            }
-        </script>
+        <link href="../views/css/main.css" rel="stylesheet">
+        <script src="../views/js/main.js"></script>
+        {{if isset($message)}}
+            <script> alert('{$message}'); </script>
+        {{/if}}
     </head>
     <body>
         <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -36,26 +27,19 @@
             </div>
         </nav>
 
-	    <div class="modal-dialog" style="padding-top:200px">
+	    <div class="modal-dialog padd-top200">
 			<div class="loginmodal-container">
 				<h1>登入</h1><br>
     			<form action="signIn" method="post" name="reg">
     				<input type="text" name="userName" placeholder="Username">
     				<input type="password" name="passWord" placeholder="Password">
-    				<input type="button" onClick="check()" class="btn btn-info btn-lg" value="登入">
+    				<input type="button" onClick="signin_check()" class="btn btn-info btn-lg" value="登入">
     			</form>
 
     			<div class="login-help">
-    				<a href="/Bento/Member/signUp" style="font-size:20px">註冊</a>
+    				<a href="/Bento/Member/signUp" class="fontsize20">註冊</a>
     			</div>
 			</div>
 		</div>
-
-        {{if isset($message)}}
-            <script>
-                alert('{$message}');
-            </script>
-        {{/if}}
-
     </body>
 </html>

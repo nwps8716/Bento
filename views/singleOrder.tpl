@@ -5,30 +5,21 @@
         <title>訂便當系統</title>
 
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../views/css/test.css" rel="stylesheet">
-        <script src="../views/js/main.js"></script>
+        <link href="../views/css/main.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="../views/js/bootstrap.min.js"></script>
-
-
-        <script type="text/javascript">
-            function check()
-            {
-            	if (reg.purchaser.value == "")
-            	{
-            		alert("請填寫訂購人");
-            	}
-            	else reg.submit();
-            }
-        </script>
+        <script src="../views/js/renewItem.js"></script>
+        {{if isset($message)}}
+            <script> alert('{$message}'); </script>
+        {{/if}}
     </head>
     <body>
         {{include file = "views/navbar.tpl"}}
 
-        <div class="container" style="margin-top:150px">
+        <div class="container mar-top150">
             <div class="row">
                 <div class="box">
-                    <legend style="text-align: center">歡迎訂購</legend>
+                    <legend class="test-align-center">歡迎訂購</legend>
                     <div id="Div0">
                         <div id="top">
                             <table class="table table-bordered">
@@ -40,6 +31,7 @@
                                         <th>備註</th>
                                     </tr>
                                 </thead>
+                                <div id='hidden' class="display">{{$orderData[0]}}</div>  <!--將值傳給js檔使用-->
                                 <tbody>
                                     <tr>
                                         <td>{{$orderData[1]}}</td>
@@ -51,7 +43,8 @@
                             </table>
                         </div>
                         <div id="left">
-                            <legend style="text-align: center">訂購狀況</legend>
+                            <div id="list">                                     <!-- 左邊區塊-訂購狀況表 -->
+                            <legend class="test-align-center">訂購狀況</legend>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -75,6 +68,7 @@
                                         <th>{{$totalmoney}}</th>
                                     </tr>
                                 </table>
+                            </div>
                             <!-- Large modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">各品項統計</button>
 
@@ -108,8 +102,8 @@
                             </div>
                         </div>
 
-                        <div id="right">
-                            <legend style="text-align: center">下單區</legend>
+                        <div id="right">                                        <!-- 右邊區塊-下單區塊 -->
+                            <legend class="test-align-center">下單區</legend>
                             <form action="uploadPurchaser" method="post" name="reg">
                                 <table class="table table-bordered">
                                     <thead>
@@ -135,16 +129,9 @@
                             </form>
                         </div>
                     </div>
-                    <div style="clear:both"></div>
+                    <div class="clearboth"></div>
                 </div>
             </div>
         </div>
-
-        {{if isset($message)}}
-            <script>
-                alert('{$message}');
-            </script>
-        {{/if}}
-
     </body>
 </html>

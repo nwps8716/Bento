@@ -243,7 +243,7 @@ class Bentodb
         return $result;
     }
 
-    //下面2個函式主要是為了統計餐點個別數量。
+    //下面2個函式主要是為了統計餐點個別數量，先取有幾種不同品項，再去個別算數量。
     public function differentItem($orderId)
     {
         $sql = "SELECT distinct `item` FROM `Purchaser` Where `orderId` = :orderId";

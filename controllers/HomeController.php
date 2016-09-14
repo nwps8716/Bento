@@ -63,7 +63,7 @@ class HomeController extends Controller
         $check = $usedb->checkRepeatShop($shopName, $shopAddress, $shopPhone);  //確認有無重複的店家
 
         if ($check == NULL) {
-            $getUserId = $usedb->getUserName($userName);                          //為了抓取userId,$getUser[0]為userId
+            $getUserId = $usedb->getUserName($userName);                        //為了抓取userId,$getUser[0]為userId
             $userId = $getUserId[0];
 
             for ($i = 0 ; $i < $num ; $i++) {                                   //先檢查全部餐點資料是否正確
@@ -209,6 +209,30 @@ class HomeController extends Controller
         $this->smarty->assign('countByItem', $countByItem);
         $this->smarty->assign('userName', $_SESSION['userName']);
         $this->smarty->display('../Bento/views/singleOrder.tpl');
+    }
+
+    public function renew()                                                     //AJAX資料更新
+    {
+        $this->model("Bentodb");
+        $usedb = new Bentodb();
+
+        $orderId = $_GET['orderId'];
+
+        $getPurchaser = $usedb->purchaserByOrderId($orderId);
+        $allData = count($getPurchaser);
+
+        for ($x = 0 ; $x < $allData ; $x++) {
+            for ($y = 0 ; $y < 3 ; $y++) {
+                $allPurchaser[$x][$y] = $getPurchaser[$x][$y + 2];              //訂購資料
+            }
+            $total = $total + $getPurchaser[$x][4];                             //總金額
+        }
+
+        for ($d = 0 ; $d < $allData ; $d++) {
+            $allPurchaser[$d][3] = $total;
+        }
+
+        echo json_encode($allPurchaser);
     }
 
     public function uploadPurchaser()
