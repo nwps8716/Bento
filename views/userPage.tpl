@@ -23,6 +23,7 @@
                             <tr>
                                 <th>連結</th>
                                 <th>訂單名稱</th>
+                                <th>電話</th>
                                 <th>收單時間</th>
                                 <th>負責人</th>
                             </tr>
@@ -34,6 +35,7 @@
                                 <td>{{$foo[1]}}</td>
                                 <td>{{$foo[2]}}</td>
                                 <td>{{$foo[3]}}</td>
+                                <td>{{$foo[4]}}</td>
                             </tr>
                             {{/foreach}}
                          </tbody>

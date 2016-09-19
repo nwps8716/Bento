@@ -33,12 +33,12 @@
     			<form action="signIn" method="post" name="reg">
     				<input type="text" name="userName" placeholder="Username">
     				<input type="password" name="passWord" placeholder="Password">
-    				<input type="button" onClick="signin_check()" class="btn btn-info btn-lg" value="登入">
+    				<select class="form-control" name="userLevel">
+                        <option value="1">一般使用者</option>
+                        <option value="2">管理員</option>
+                    </select>
+    				</br><input type="button" onClick="signin_check()" class="btn btn-info btn-lg" value="登入">
     			</form>
-
-    			<div class="login-help">
-    				<a href="/Bento/Member/signUp" class="fontsize20">註冊</a>
-    			</div>
 			</div>
 		</div>
     </body>

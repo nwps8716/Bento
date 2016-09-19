@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-14 01:18:10
+/* Smarty version 3.1.30, created on 2016-09-19 04:26:03
   from "/home/ubuntu/workspace/Bento/views/userPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57d8a552c04884_00874483',
+  'unifunc' => 'content_57df68dbca46e4_37944328',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3c3d2d9f03c2cd31231c5fe7a929fa3d50b62e51' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/userPage.tpl',
-      1 => 1473815883,
+      1 => 1474259161,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57d8a552c04884_00874483 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57df68dbca46e4_37944328 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,6 +63,7 @@ echo $_prefixVariable3;?>
                             <tr>
                                 <th>連結</th>
                                 <th>訂單名稱</th>
+                                <th>電話</th>
                                 <th>收單時間</th>
                                 <th>負責人</th>
                             </tr>
@@ -96,13 +97,18 @@ echo $_smarty_tpl->tpl_vars['foo']->value[3];
 $_prefixVariable8=ob_get_clean();
 echo $_prefixVariable8;?>
 </td>
+                                <td><?php ob_start();
+echo $_smarty_tpl->tpl_vars['foo']->value[4];
+$_prefixVariable9=ob_get_clean();
+echo $_prefixVariable9;?>
+</td>
                             </tr>
                             <?php ob_start();
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-$_prefixVariable9=ob_get_clean();
-echo $_prefixVariable9;?>
+$_prefixVariable10=ob_get_clean();
+echo $_prefixVariable10;?>
 
                          </tbody>
                     </table>

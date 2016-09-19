@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-14 09:06:54
+/* Smarty version 3.1.30, created on 2016-09-19 12:07:31
   from "/home/ubuntu/workspace/Bento/views/newOrderPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57d8a2aeb75831_27232848',
+  'unifunc' => 'content_57df64838b5765_07043382',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'da2edaf562d9bf9f8fb14d49a1e146f1ec8db35b' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/newOrderPage.tpl',
-      1 => 1473815207,
+      1 => 1474257625,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57d8a2aeb75831_27232848 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57df64838b5765_07043382 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -103,7 +103,10 @@ echo $_prefixVariable7;?>
                 			<label>備註</label>
         					<input type="text" class="form-control" name="remark" placeholder="收錢時間">
         				</div>
-        				<input type="hidden" name="userName" value="<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
+        				<input type="hidden" name="userName" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['userName']->value;
+$_prefixVariable8=ob_get_clean();
+echo $_prefixVariable8;?>
 ">
                         <input type="button" onClick="order_check()" class="btn btn-primary col-xs-12" value="送出">
                     </form>

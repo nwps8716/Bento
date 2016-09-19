@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-14 01:10:02
+/* Smarty version 3.1.30, created on 2016-09-19 01:32:37
   from "/home/ubuntu/workspace/Bento/views/signIn.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57d8a36af1b4b9_95657678',
+  'unifunc' => 'content_57df4035422188_85193061',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a92d0250fd0b924965284b662f55e59fea5787a' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/signIn.tpl',
-      1 => 1473815399,
+      1 => 1474248751,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_57d8a36af1b4b9_95657678 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57df4035422188_85193061 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,12 +70,12 @@ echo $_prefixVariable2;?>
     			<form action="signIn" method="post" name="reg">
     				<input type="text" name="userName" placeholder="Username">
     				<input type="password" name="passWord" placeholder="Password">
-    				<input type="button" onClick="signin_check()" class="btn btn-info btn-lg" value="登入">
+    				<select class="form-control" name="userLevel">
+                        <option value="1">一般使用者</option>
+                        <option value="2">管理員</option>
+                    </select>
+    				</br><input type="button" onClick="signin_check()" class="btn btn-info btn-lg" value="登入">
     			</form>
-
-    			<div class="login-help">
-    				<a href="/Bento/Member/signUp" class="fontsize20">註冊</a>
-    			</div>
 			</div>
 		</div>
     </body>

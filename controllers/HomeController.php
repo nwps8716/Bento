@@ -37,7 +37,7 @@ class HomeController extends Controller
         $num = count($result);
 
         for ($i = 0 ; $i < $num ; $i++) {
-            for ($j = 0 ; $j < 4 ; $j++) {
+            for ($j = 0 ; $j < 5 ; $j++) {
                 $order[$i][$j] = $result[$i][$j];
             }
         }
@@ -138,7 +138,8 @@ class HomeController extends Controller
             $check = $usedb->checkRepeatOrder($shopName, $principal);           //確認訂單有無重複，店名AND負責人查詢
 
             if ($check == NULL) {
-                $result = $usedb->insertAllOrder($shopName, $endTime, $principal, $remark);
+                $shopPhone = $usedb->getShopPhone($shopName);
+                $result = $usedb->insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark);
 
                 if ($result > 0) {
                     $_SESSION['alert'] = "開單成功";
@@ -208,6 +209,7 @@ class HomeController extends Controller
         $this->smarty->assign('totalmoney', $total);
         $this->smarty->assign('countByItem', $countByItem);
         $this->smarty->assign('userName', $_SESSION['userName']);
+        $this->smarty->assign('userId', $_SESSION['userId']);
         $this->smarty->display('../Bento/views/singleOrder.tpl');
     }
 
@@ -222,14 +224,14 @@ class HomeController extends Controller
         $allData = count($getPurchaser);
 
         for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 3 ; $y++) {
-                $allPurchaser[$x][$y] = $getPurchaser[$x][$y + 2];              //訂購資料
+            for ($y = 0 ; $y < 5 ; $y++) {
+                $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
             }
             $total = $total + $getPurchaser[$x][4];                             //總金額
         }
 
         for ($d = 0 ; $d < $allData ; $d++) {
-            $allPurchaser[$d][3] = $total;
+            $allPurchaser[$d][5] = $total;
         }
 
         echo json_encode($allPurchaser);
@@ -260,6 +262,7 @@ class HomeController extends Controller
         $usedb = new Bentodb();
 
         $orderId = $_POST['orderId'];
+        $userId = $_POST['userId'];
         $purchaser = $_POST['purchaser'];
         $shopMenuId = $_POST['shopMenuId'];
         $num = count($shopMenuId);
@@ -268,7 +271,7 @@ class HomeController extends Controller
             $result[$i] = $usedb->getShopMenuById($shopMenuId[$i]);
             $item = $result[$i][2];
             $price = $result[$i][3];
-            $insert = $usedb->insertPurchaser($orderId, $purchaser, $item, $price);
+            $insert = $usedb->insertPurchaser($orderId, $purchaser, $item, $price, $userId);
         }
 
         $_SESSION['alert'] = "訂購成功";

@@ -9,15 +9,14 @@ setInterval(function()
 
             for (i = 0 ; i < count ; i++) {
                 itemData += "<tr>" +
-                            "<td>" + orderstatus[i][0] + "</td>" +
-                            "<td>" + orderstatus[i][1] + "</td>" +
                             "<td>" + orderstatus[i][2] + "</td>" +
+                            "<td>" + orderstatus[i][3] + "</td>" +
+                            "<td>" + orderstatus[i][4] + "</td>" +
                             "<td>" +
                                 "<form action='cancelOrderItem' method='post' name='cancelfood'>" +
                                     "<input type='hidden' name='orderId' value=" + $('#orderId').text() + ">" +
-                                    "<input type='hidden' name='singleItemID' value=" + $('#singleItemID').text() +">" +
+                                    "<input type='hidden' name='singleItemID' value=" + orderstatus[i][0] +">" +
                                     "<input type='submit' class='btn-primary' value='取消'>" +
-                                    "<div id='singleItemID' class='display'>" + $('#singleItemID').text() + "</div>" +
                                 "</form>" +
                             "</td>" +
                             "</tr>";
@@ -41,7 +40,7 @@ setInterval(function()
                     "<table class='table table-bordered'>" +
                         "<tr>" +
                             "<th>總金額</th>" +
-                            "<th>" + orderstatus[0][3] + "</th>" +
+                            "<th>" + orderstatus[0][5] + "</th>" +
                         "</tr>" +
                     "</table>" +
                 "</div>"

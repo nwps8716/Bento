@@ -52,15 +52,23 @@ class MemberController extends Controller
         if (isset($_POST['userName'])) {
             $userName = $_POST['userName'];
             $passWord = $_POST['passWord'];
-            $result = $usedb->checkUserData($userName, $passWord);
+            $level = $_POST['userLevel'];
+            $result = $usedb->checkUserData($userName, $passWord, $level);
 
-            if ($result) {
-                $_SESSION['userName'] = $result;
+            if ($result > 0) {
+                $_SESSION['userName'] = $result[1];
+                $_SESSION['userId'] = $result[0];
                 $_SESSION['alert'] = "登入成功";
-                header("Location:/Bento/Home/userPage");
-                exit;
+
+                if ($result[3] == 2){
+                    header("Location:/Bento/Admin/adminPage");
+                    exit;
+                } else {
+                    header("Location:/Bento/Home/userPage");
+                    exit;
+                }
             } else {
-                $this->smarty->assign('message', '帳號或密碼錯誤');
+                $this->smarty->assign('message', '帳號密碼錯誤或權限不符');
                 $this->smarty->display('../Bento/views/signIn.tpl');
                 exit;
             }
@@ -75,6 +83,7 @@ class MemberController extends Controller
     {
         if (isset($_GET['signOut'])) {
             unset($_SESSION['userName']);
+            unset($_SESSION['userId']);
             $this->smarty->assign('message', '完成登出');
             $this->smarty->display('../Bento/views/signIn.tpl');
         }

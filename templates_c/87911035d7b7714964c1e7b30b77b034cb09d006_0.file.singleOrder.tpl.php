@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-14 03:56:36
+/* Smarty version 3.1.30, created on 2016-09-19 04:28:17
   from "/home/ubuntu/workspace/Bento/views/singleOrder.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57d8ca74268454_22160557',
+  'unifunc' => 'content_57df6961566f16_15023677',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '87911035d7b7714964c1e7b30b77b034cb09d006' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/singleOrder.tpl',
-      1 => 1473825334,
+      1 => 1474259296,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57d8ca74268454_22160557 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57df6961566f16_15023677 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,13 +65,17 @@ echo $_prefixVariable3;?>
         <div class="container mar-top150">
             <div class="row">
                 <div class="box">
-                    <legend class="test-align-center">歡迎訂購</legend>
+                    <legend class="test-align-center"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['orderData']->value[1];
+$_prefixVariable4=ob_get_clean();
+echo $_prefixVariable4;?>
+</legend>
                     <div id="Div0">
                         <div id="top">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>店家</th>
+                                        <th>電話</th>
                                         <th>收單時間</th>
                                         <th>負責人</th>
                                         <th>備註</th>
@@ -79,16 +83,11 @@ echo $_prefixVariable3;?>
                                 </thead>
                                 <div id='orderId' class="display"><?php ob_start();
 echo $_smarty_tpl->tpl_vars['orderData']->value[0];
-$_prefixVariable4=ob_get_clean();
-echo $_prefixVariable4;?>
+$_prefixVariable5=ob_get_clean();
+echo $_prefixVariable5;?>
 </div>  <!--將值傳給js檔使用-->
                                 <tbody>
                                     <tr>
-                                        <td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['orderData']->value[1];
-$_prefixVariable5=ob_get_clean();
-echo $_prefixVariable5;?>
-</td>
                                         <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['orderData']->value[2];
 $_prefixVariable6=ob_get_clean();
@@ -103,6 +102,11 @@ echo $_prefixVariable7;?>
 echo $_smarty_tpl->tpl_vars['orderData']->value[4];
 $_prefixVariable8=ob_get_clean();
 echo $_prefixVariable8;?>
+</td>
+                                        <td><?php ob_start();
+echo $_smarty_tpl->tpl_vars['orderData']->value[5];
+$_prefixVariable9=ob_get_clean();
+echo $_prefixVariable9;?>
 </td>
                                     </tr>
                                  </tbody>
@@ -125,43 +129,38 @@ echo $_prefixVariable8;?>
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['allPurchaser']->value, 'purchaser');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['purchaser']->value) {
-$_prefixVariable9=ob_get_clean();
-echo $_prefixVariable9;?>
+$_prefixVariable10=ob_get_clean();
+echo $_prefixVariable10;?>
 
                                     <tr>
                                         <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['purchaser']->value[2];
-$_prefixVariable10=ob_get_clean();
-echo $_prefixVariable10;?>
-</td>
-                                        <td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['purchaser']->value[3];
 $_prefixVariable11=ob_get_clean();
 echo $_prefixVariable11;?>
 </td>
                                         <td><?php ob_start();
-echo $_smarty_tpl->tpl_vars['purchaser']->value[4];
+echo $_smarty_tpl->tpl_vars['purchaser']->value[3];
 $_prefixVariable12=ob_get_clean();
 echo $_prefixVariable12;?>
+</td>
+                                        <td><?php ob_start();
+echo $_smarty_tpl->tpl_vars['purchaser']->value[4];
+$_prefixVariable13=ob_get_clean();
+echo $_prefixVariable13;?>
 </td>
                                         <td>
                                             <form action="cancelOrderItem" method="post">
                                                 <input type="hidden" name="orderId" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['orderId']->value;
-$_prefixVariable13=ob_get_clean();
-echo $_prefixVariable13;?>
-">
-                                                <input type="hidden" name="singleItemID" value="<?php ob_start();
-echo $_smarty_tpl->tpl_vars['purchaser']->value[0];
 $_prefixVariable14=ob_get_clean();
 echo $_prefixVariable14;?>
 ">
-                                                <input type="submit" class="btn-primary" value="取消">
-                                                <div id='singleItemID' class="display"><?php ob_start();
+                                                <input type="hidden" name="singleItemID" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['purchaser']->value[0];
 $_prefixVariable15=ob_get_clean();
 echo $_prefixVariable15;?>
-</div>
+">
+                                                <input type="submit" class="btn-primary" value="取消">
                                             </form>
                                         </td>
                                     </tr>
@@ -286,6 +285,11 @@ echo $_prefixVariable26;?>
 echo $_smarty_tpl->tpl_vars['orderId']->value;
 $_prefixVariable27=ob_get_clean();
 echo $_prefixVariable27;?>
+">
+                                <input type="hidden" name="userId" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['userId']->value;
+$_prefixVariable28=ob_get_clean();
+echo $_prefixVariable28;?>
 ">
                                 <input type="text" class="form-control" name="purchaser" placeholder="訂購人姓名"></br>
                                 <input type="button" onClick="check()" class="btn btn-primary" value="送出">

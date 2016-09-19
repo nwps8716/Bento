@@ -41,7 +41,7 @@
                 			<label>備註</label>
         					<input type="text" class="form-control" name="remark" placeholder="收錢時間">
         				</div>
-        				<input type="hidden" name="userName" value="{$userName}">
+        				<input type="hidden" name="userName" value="{{$userName}}">
                         <input type="button" onClick="order_check()" class="btn btn-primary col-xs-12" value="送出">
                     </form>
                 </div>

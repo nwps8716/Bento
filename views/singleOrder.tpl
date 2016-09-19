@@ -19,13 +19,13 @@
         <div class="container mar-top150">
             <div class="row">
                 <div class="box">
-                    <legend class="test-align-center">歡迎訂購</legend>
+                    <legend class="test-align-center">{{$orderData[1]}}</legend>
                     <div id="Div0">
                         <div id="top">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>店家</th>
+                                        <th>電話</th>
                                         <th>收單時間</th>
                                         <th>負責人</th>
                                         <th>備註</th>
@@ -34,10 +34,10 @@
                                 <div id='orderId' class="display">{{$orderData[0]}}</div>  <!--將值傳給js檔使用-->
                                 <tbody>
                                     <tr>
-                                        <td>{{$orderData[1]}}</td>
                                         <td>{{$orderData[2]}}</td>
                                         <td>{{$orderData[3]}}</td>
                                         <td>{{$orderData[4]}}</td>
+                                        <td>{{$orderData[5]}}</td>
                                     </tr>
                                  </tbody>
                             </table>
@@ -65,7 +65,6 @@
                                                 <input type="hidden" name="orderId" value="{{$orderId}}">
                                                 <input type="hidden" name="singleItemID" value="{{$purchaser[0]}}">
                                                 <input type="submit" class="btn-primary" value="取消">
-                                                <div id='singleItemID' class="display">{{$purchaser[0]}}</div>      <!--將值傳給js檔使用-->
                                             </form>
                                         </td>
                                     </tr>
@@ -133,6 +132,7 @@
                                     </tbody>
                                 </table>
                                 <input type="hidden" name="orderId" value="{{$orderId}}">
+                                <input type="hidden" name="userId" value="{{$userId}}">
                                 <input type="text" class="form-control" name="purchaser" placeholder="訂購人姓名"></br>
                                 <input type="button" onClick="check()" class="btn btn-primary" value="送出">
                             </form>

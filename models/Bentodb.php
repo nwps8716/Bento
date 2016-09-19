@@ -40,20 +40,21 @@ class Bentodb
         return $result;
     }
 
-    public function checkUserData($userName, $passWord)
+    public function checkUserData($userName, $passWord, $level)
     {
-        $sql = "SELECT * FROM `UserData` WHERE `userName` = :userName AND `passWord` = :passWord";
+        $sql = "SELECT * FROM `UserData` WHERE `userName` = :userName AND `passWord` = :passWord AND `level` = :level";
         $stmt = $this->dbcon->prepare($sql);
 
         $stmt->bindValue(':userName', $userName);
         $stmt->bindValue(':passWord', $passWord);
+        $stmt->bindValue(':level', $level);
 
         $stmt->execute();
 
         $result = $stmt->fetch();
         $this->dbpdo->closeConnection();
 
-        return $result[1];  //回傳使用者帳號
+        return $result;  //回傳使用者帳號
     }
 
     public function insertShopData($userId, $shopName, $shopAddress, $shopPhone)
@@ -102,6 +103,21 @@ class Bentodb
         return $result;
     }
 
+    public function getShopPhone($shopName)
+    {
+        $sql = "SELECT * FROM `ShopData` WHERE `shopName` = :shopName";
+        $stmt = $this->dbcon->prepare($sql);
+
+        $stmt->bindValue(':shopName', $shopName);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        $this->dbpdo->closeConnection();
+
+        return $result[4];
+    }
+
     public function checkRepeatShop($shopName, $shopAddress, $shopPhone)
     {
         $sql = "SELECT * FROM `ShopData` WHERE `shopName` = :shopName OR `shopAddress` = :shopAddress OR `shopPhone` = :shopPhone";
@@ -119,12 +135,13 @@ class Bentodb
         return $result;
     }
 
-    public function insertAllOrder($shopName, $endTime, $principal, $remark)
+    public function insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark)
     {
-        $sql = "INSERT INTO `AllOrder` (`shopName`, `endTime`, `principal`, `remark`) VALUES (:shopName, :endTime, :principal, :remark)";
+        $sql = "INSERT INTO `AllOrder` (`shopName`, `shopPhone`, `endTime`, `principal`, `remark`) VALUES (:shopName, :shopPhone, :endTime, :principal, :remark)";
         $stmt = $this->dbcon->prepare($sql);
 
         $stmt->bindValue(':shopName', $shopName);
+        $stmt->bindValue(':shopPhone', $shopPhone);
         $stmt->bindValue(':endTime', $endTime);
         $stmt->bindValue(':principal', $principal);
         $stmt->bindValue(':remark', $remark);
@@ -210,22 +227,23 @@ class Bentodb
         return $result;
     }
 
-    public function insertPurchaser($orderId, $purchaser, $item, $price)
+    //訂購餐點輸入資料庫
+    public function insertPurchaser($orderId, $purchaser, $item, $price, $userId)
     {
-        $sql = "INSERT INTO `Purchaser` (`orderId`, `purchaser`, `item`, `price`) VALUES (:orderId, :purchaser, :item, :price)";
+        $sql = "INSERT INTO `Purchaser` (`orderId`, `purchaser`, `item`, `price`, `userId`) VALUES (:orderId, :purchaser, :item, :price, :userId)";
         $stmt = $this->dbcon->prepare($sql);
 
         $stmt->bindValue(':orderId', $orderId);
         $stmt->bindValue(':purchaser', $purchaser);
         $stmt->bindValue(':item', $item);
         $stmt->bindValue(':price', $price);
+        $stmt->bindValue(':userId', $userId);
 
         $result = $stmt->execute();
 
     	$this->dbpdo->closeConnection();
 
         return $result;
-
     }
 
     public function purchaserByOrderId($orderId)
