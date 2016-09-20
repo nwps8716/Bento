@@ -12,7 +12,7 @@
         {{/if}}
     </head>
     <body>
-        {{include file = "views/navbar.tpl"}}
+        {{include file = "views/adminNavbar.tpl"}}
 
         <div class="container mar-top150">
             <div class="row">

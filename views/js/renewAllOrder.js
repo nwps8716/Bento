@@ -1,6 +1,5 @@
 setInterval(function()
 {
-
     $.ajax({
         url: "/Bento/Home/renewUserPage",
         success: function(data) {
@@ -15,6 +14,13 @@ setInterval(function()
                                 "<td>" + allOrder[i][2] + "</td>" +
                                 "<td>" + allOrder[i][3] + "</td>" +
                                 "<td>" + allOrder[i][4] + "</td>" +
+                                "<td>" +
+                                    "<form action='cancelOrder' method='post'>" +
+                                        "<input type='hidden' name='orderId' value=" + allOrder[i][0] +">" +
+                                        "<input type='hidden' name='userId' value=" + allOrder[i][6] +">" +
+                                        "<input type='submit' class='btn-danger' value='刪除'>" +
+                                    "</form>" +
+                                "</td>" +
                             "</tr>";
             }
 
@@ -28,6 +34,7 @@ setInterval(function()
                                 "<th>電話</th>" +
                                 "<th>收單時間</th>" +
                                 "<th>負責人</th>" +
+                                "<th>刪單</th>" +
                             "</tr>" +
                         "</thead>" +
                         "<tbody>" +

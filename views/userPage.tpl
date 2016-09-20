@@ -28,6 +28,7 @@
                                 <th>電話</th>
                                 <th>收單時間</th>
                                 <th>負責人</th>
+                                <th>刪單</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,13 @@
                                 <td>{{$foo[2]}}</td>
                                 <td>{{$foo[3]}}</td>
                                 <td>{{$foo[4]}}</td>
+                                <td>
+                                    <form action="cancelOrder" method="post">
+                                        <input type="hidden" name="orderId" value="{{$foo[0]}}">
+                                        <input type="hidden" name="userId" value="{{$foo[6]}}">
+                                        <input type="submit" class="btn-danger" value="刪除">
+                                    </form>
+                                </td>
                             </tr>
                             {{/foreach}}
                          </tbody>

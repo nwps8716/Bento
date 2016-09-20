@@ -135,9 +135,9 @@ class Bentodb
         return $result;
     }
 
-    public function insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark)
+    public function insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark, $userId)
     {
-        $sql = "INSERT INTO `AllOrder` (`shopName`, `shopPhone`, `endTime`, `principal`, `remark`) VALUES (:shopName, :shopPhone, :endTime, :principal, :remark)";
+        $sql = "INSERT INTO `AllOrder` (`shopName`, `shopPhone`, `endTime`, `principal`, `remark`, `userId`) VALUES (:shopName, :shopPhone, :endTime, :principal, :remark, :userId)";
         $stmt = $this->dbcon->prepare($sql);
 
         $stmt->bindValue(':shopName', $shopName);
@@ -145,6 +145,7 @@ class Bentodb
         $stmt->bindValue(':endTime', $endTime);
         $stmt->bindValue(':principal', $principal);
         $stmt->bindValue(':remark', $remark);
+        $stmt->bindValue(':userId', $userId);
 
         $result = $stmt->execute();
 
@@ -164,6 +165,20 @@ class Bentodb
         $stmt->execute();
 
         $result = $stmt->fetch();
+        $this->dbpdo->closeConnection();
+
+        return $result;
+    }
+
+    public function deleteOrder($orderId, $userId)
+    {
+        $sql = "DELETE FROM `AllOrder` WHERE `orderId` = :orderId AND `userId` = :userId";
+        $stmt = $this->dbcon->prepare($sql);
+
+        $stmt->bindValue(':orderId',$orderId);
+        $stmt->bindValue(':userId',$userId);
+
+        $result = $stmt->execute();
         $this->dbpdo->closeConnection();
 
         return $result;

@@ -16,15 +16,11 @@ class HomeController extends Controller
             $_SESSION['alert'] = "請先登入會員";
             header("Location:/Bento/Member/signIn");
             exit;
+        } else if ($_SESSION['level'] != 1) {
+            $_SESSION['alert'] = "權限錯誤";
+            header("Location:/Bento/Member/signIn");
+            exit;
         }
-    }
-
-    public function addShopPage()
-    {
-        $this->checkSession();
-
-        $this->smarty->assign('userName', $_SESSION['userName']);
-        $this->smarty->display('../Bento/views/addShopPage.tpl');
     }
 
     public function userPage()                                                  //所有訂單頁面
@@ -37,7 +33,7 @@ class HomeController extends Controller
         $num = count($result);
 
         for ($i = 0 ; $i < $num ; $i++) {
-            for ($j = 0 ; $j < 5 ; $j++) {
+            for ($j = 0 ; $j < 7 ; $j++) {
                 $order[$i][$j] = $result[$i][$j];
             }
         }
@@ -58,7 +54,7 @@ class HomeController extends Controller
         $num = count($result);
 
         for ($i = 0 ; $i < $num ; $i++) {
-            for ($j = 0 ; $j < 5 ; $j++) {
+            for ($j = 0 ; $j < 7 ; $j++) {
                 $order[$i][$j] = $result[$i][$j];
             }
         }
@@ -66,51 +62,23 @@ class HomeController extends Controller
         echo json_encode($order);
     }
 
-    public function uploadShop()
+    public function cancelOrder()                                               //刪除已開單資料
     {
         $this->model("Bentodb");
         $usedb = new Bentodb();
 
-        $userName = $_POST['userName'];
-        $shopName = $_POST['shopName'];
-        $shopAddress = $_POST['shopAddress'];
-        $shopPhone = $_POST['shopPhone'];
-        $num = count($_POST['food']);                                           //取餐點總筆數
+        $orderId = $_POST['orderId'];
+        $userId = $_POST['userId'];
 
-        $check = $usedb->checkRepeatShop($shopName, $shopAddress, $shopPhone);  //確認有無重複的店家
-
-        if ($check == NULL) {
-            $getUserId = $usedb->getUserName($userName);                        //為了抓取userId,$getUser[0]為userId
-            $userId = $getUserId[0];
-
-            for ($i = 0 ; $i < $num ; $i++) {                                   //先檢查全部餐點資料是否正確
-                if ($_POST['food'][$i] == "" or $_POST['price'][$i] == "") {
-                    $this->smarty->assign('message', '餐點資料有錯誤');
-                    $this->smarty->display('../Bento/views/addShopPage.tpl');
-                    exit;
-                }
-            }
-
-            $result = $usedb->insertShopData($userId, $shopName, $shopAddress, $shopPhone);
-
-            if ($result > 0) {
-
-                for ($j = 0 ; $j < $num ; $j++) {
-                    $result = $usedb->insertShopMenu($shopName, $_POST['food'][$j], $_POST['price'][$j]);
-                }
-
-                if ($result > 0) {
-                    $_SESSION['alert'] = "新增成功";
-                    header("Location:/Bento/Home/userPage");
-                    exit;
-                }
-            } else {
-                $this->smarty->assign('message', '店家資料新增失敗');
-                $this->smarty->display('../Bento/views/addShopPage.tpl');
-            }
+        if ($userId == $_SESSION['userId']) {
+            $result = $usedb->deleteOrder($orderId, $userId);
+            $_SESSION['alert'] = "刪單成功";
+            header("Location:/Bento/Home/userPage");
+            exit;
         } else {
-            $this->smarty->assign('message', '新增的店家資料有重複');
-            $this->smarty->display('../Bento/views/addShopPage.tpl');
+            $_SESSION['alert'] = "使用者ID錯誤";
+            header("Location:/Bento/Home/userPage");
+            exit;
         }
     }
 
@@ -137,6 +105,7 @@ class HomeController extends Controller
         $this->smarty->assign('nowTime', $nowTime);
         $this->smarty->assign('shopName', $shopName);                           //將shopName資料回傳到開單頁面
         $this->smarty->assign('userName', $_SESSION['userName']);
+        $this->smarty->assign('userId', $_SESSION['userId']);
         $this->smarty->display('../Bento/views/newOrderPage.tpl');
     }
 
@@ -150,13 +119,14 @@ class HomeController extends Controller
         $endTime = $_POST['endTime'];
         $principal = $_POST['principal'];
         $remark = $_POST['remark'];
+        $userId = $_POST['userId'];
 
         if (strtotime($endTime) > strtotime('now')) {
             $check = $usedb->checkRepeatOrder($shopName, $principal);           //確認訂單有無重複，店名AND負責人查詢
 
             if ($check == NULL) {
                 $shopPhone = $usedb->getShopPhone($shopName);
-                $result = $usedb->insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark);
+                $result = $usedb->insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark, $userId);
 
                 if ($result > 0) {
                     $_SESSION['alert'] = "開單成功";
@@ -311,7 +281,7 @@ class HomeController extends Controller
             header("Location:/Bento/Home/singleOrder?orderId=$orderId");
             exit;
         } else {
-            $_SESSION['alert'] = "權限錯誤";
+            $_SESSION['alert'] = "使用者ID錯誤";
             header("Location:/Bento/Home/singleOrder?orderId=$orderId");
             exit;
         }

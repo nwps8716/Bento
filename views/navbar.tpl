@@ -15,9 +15,6 @@
                     <a href="/Bento/Home/userPage">所有訂單</a>
                 </li>
                 <li class="new-li">
-                    <a href="/Bento/Home/addShopPage">新增店家</a>
-                </li>
-                <li class="new-li">
                     <a href="/Bento/Member/signOut?signOut=1">登出</a>
                 </li>
             </ul>

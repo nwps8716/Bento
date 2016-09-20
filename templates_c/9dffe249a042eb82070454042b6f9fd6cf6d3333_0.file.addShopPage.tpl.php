@@ -1,27 +1,27 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-14 01:06:15
+/* Smarty version 3.1.30, created on 2016-09-20 06:53:10
   from "/home/ubuntu/workspace/Bento/views/addShopPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57d8a2871f1bc5_04143771',
+  'unifunc' => 'content_57e0dcd6a6a687_39543651',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9dffe249a042eb82070454042b6f9fd6cf6d3333' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/addShopPage.tpl',
-      1 => 1473815167,
+      1 => 1474354365,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:views/navbar.tpl' => 1,
+    'file:views/adminNavbar.tpl' => 1,
   ),
 ),false)) {
-function content_57d8a2871f1bc5_04143771 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57e0dcd6a6a687_39543651 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +51,7 @@ echo $_prefixVariable2;?>
     </head>
     <body>
         <?php ob_start();
-$_smarty_tpl->_subTemplateRender("file:views/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+$_smarty_tpl->_subTemplateRender("file:views/adminNavbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_prefixVariable3=ob_get_clean();
 echo $_prefixVariable3;?>
 

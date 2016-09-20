@@ -56,8 +56,9 @@ class MemberController extends Controller
             $result = $usedb->checkUserData($userName, $passWord, $level);
 
             if ($result > 0) {
-                $_SESSION['userName'] = $result[1];
                 $_SESSION['userId'] = $result[0];
+                $_SESSION['userName'] = $result[1];
+                $_SESSION['level'] = $result[3];
                 $_SESSION['alert'] = "登入成功";
 
                 if ($result[3] == 2){

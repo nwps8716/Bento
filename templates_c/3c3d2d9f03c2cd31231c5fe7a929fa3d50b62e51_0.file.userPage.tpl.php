@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-19 09:17:28
+/* Smarty version 3.1.30, created on 2016-09-20 06:19:15
   from "/home/ubuntu/workspace/Bento/views/userPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57dfad28926308_13490978',
+  'unifunc' => 'content_57e0d4e368b920_16186643',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3c3d2d9f03c2cd31231c5fe7a929fa3d50b62e51' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/userPage.tpl',
-      1 => 1474276615,
+      1 => 1474352155,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57dfad28926308_13490978 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57e0d4e368b920_16186643 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,6 +72,7 @@ echo $_prefixVariable3;?>
                                 <th>電話</th>
                                 <th>收單時間</th>
                                 <th>負責人</th>
+                                <th>刪單</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,13 +109,28 @@ echo $_smarty_tpl->tpl_vars['foo']->value[4];
 $_prefixVariable9=ob_get_clean();
 echo $_prefixVariable9;?>
 </td>
+                                <td>
+                                    <form action="cancelOrder" method="post">
+                                        <input type="hidden" name="orderId" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['foo']->value[0];
+$_prefixVariable10=ob_get_clean();
+echo $_prefixVariable10;?>
+">
+                                        <input type="hidden" name="userId" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['foo']->value[6];
+$_prefixVariable11=ob_get_clean();
+echo $_prefixVariable11;?>
+">
+                                        <input type="submit" class="btn-danger" value="刪除">
+                                    </form>
+                                </td>
                             </tr>
                             <?php ob_start();
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-$_prefixVariable10=ob_get_clean();
-echo $_prefixVariable10;?>
+$_prefixVariable12=ob_get_clean();
+echo $_prefixVariable12;?>
 
                          </tbody>
                     </table>
