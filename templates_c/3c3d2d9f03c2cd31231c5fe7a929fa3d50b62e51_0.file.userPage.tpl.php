@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-19 04:26:03
+/* Smarty version 3.1.30, created on 2016-09-19 09:17:28
   from "/home/ubuntu/workspace/Bento/views/userPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57df68dbca46e4_37944328',
+  'unifunc' => 'content_57dfad28926308_13490978',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3c3d2d9f03c2cd31231c5fe7a929fa3d50b62e51' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/userPage.tpl',
-      1 => 1474259161,
+      1 => 1474276615,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57df68dbca46e4_37944328 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57dfad28926308_13490978 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,6 +31,12 @@ function content_57df68dbca46e4_37944328 (Smarty_Internal_Template $_smarty_tpl)
 
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
         <link href="../views/css/main.css" rel="stylesheet">
+        <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="../views/js/renewAllOrder.js"><?php echo '</script'; ?>
+>
         <?php ob_start();
 if (isset($_smarty_tpl->tpl_vars['message']->value)) {
 $_prefixVariable1=ob_get_clean();
@@ -57,7 +63,7 @@ echo $_prefixVariable3;?>
             <div class="row">
                 <div class="box">
                     <legend class="test-align-center">所有訂單</legend>
-
+                    <div id="orderList">
                     <table class="table">
                         <thead>
                             <tr>
@@ -112,7 +118,7 @@ echo $_prefixVariable10;?>
 
                          </tbody>
                     </table>
-
+                    </div>
                 </div>
             </div>
         </div>

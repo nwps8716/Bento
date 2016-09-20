@@ -6,6 +6,8 @@
 
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
         <link href="../views/css/main.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="../views/js/renewAllOrder.js"></script>
         {{if isset($message)}}
             <script> alert('{$message}'); </script>
         {{/if}}
@@ -17,7 +19,7 @@
             <div class="row">
                 <div class="box">
                     <legend class="test-align-center">所有訂單</legend>
-
+                    <div id="orderList">
                     <table class="table">
                         <thead>
                             <tr>
@@ -40,7 +42,7 @@
                             {{/foreach}}
                          </tbody>
                     </table>
-
+                    </div>
                 </div>
             </div>
         </div>

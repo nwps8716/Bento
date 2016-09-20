@@ -41,12 +41,29 @@ class HomeController extends Controller
                 $order[$i][$j] = $result[$i][$j];
             }
         }
-
+                                                                                //var_dump($order[i][3]); 每筆收單時間
         $this->smarty->assign('message', $_SESSION['alert']);
         unset($_SESSION['alert']);
         $this->smarty->assign('order', $order);
         $this->smarty->assign('userName', $_SESSION['userName']);
         $this->smarty->display('../Bento/views/userPage.tpl');
+    }
+
+    public function renewUserPage()                                             //userPage及時更新AJAX
+    {
+        $this->model("Bentodb");
+        $usedb = new Bentodb();
+
+        $result = $usedb->getAllOrder();
+        $num = count($result);
+
+        for ($i = 0 ; $i < $num ; $i++) {
+            for ($j = 0 ; $j < 5 ; $j++) {
+                $order[$i][$j] = $result[$i][$j];
+            }
+        }
+
+        echo json_encode($order);
     }
 
     public function uploadShop()
@@ -185,7 +202,7 @@ class HomeController extends Controller
         $allData = count($getPurchaser);
 
         for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 5 ; $y++) {
+            for ($y = 0 ; $y < 6 ; $y++) {
                 $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
             }
             $total = $total + $getPurchaser[$x][4];                             //總金額
@@ -224,14 +241,14 @@ class HomeController extends Controller
         $allData = count($getPurchaser);
 
         for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 5 ; $y++) {
+            for ($y = 0 ; $y < 6 ; $y++) {
                 $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
             }
             $total = $total + $getPurchaser[$x][4];                             //總金額
         }
 
         for ($d = 0 ; $d < $allData ; $d++) {
-            $allPurchaser[$d][5] = $total;
+            $allPurchaser[$d][6] = $total;
         }
 
         echo json_encode($allPurchaser);
@@ -279,21 +296,80 @@ class HomeController extends Controller
         exit;
     }
 
-    public function cancelOrderItem()                                           //取消訂單
+    public function cancelOrderItem()                                           //取消餐點功能
     {
         $this->model("Bentodb");
         $usedb = new Bentodb();
 
+        $postUserId = $_POST['userId'];
         $orderId = $_POST['orderId'];
         $singleItemID = $_POST['singleItemID'];
 
-        $result = $usedb->deleteSingleItem($singleItemID);
-
-        if ($result > 0) {
+        if ($postUserId == $_SESSION['userId']) {
+            $result = $usedb->deleteSingleItem($singleItemID);
             $_SESSION['alert'] = "取消成功";
             header("Location:/Bento/Home/singleOrder?orderId=$orderId");
             exit;
+        } else {
+            $_SESSION['alert'] = "權限錯誤";
+            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+            exit;
         }
+    }
+
+    public function outToExcel()                                                //撈資料庫資料，轉出Excel檔功能
+    {
+        $this->model("Bentodb");
+        $usedb = new Bentodb();
+
+        $orderId = $_POST['mode'];
+
+        $getPurchaser = $usedb->purchaserByOrderId($orderId);
+        $allData = count($getPurchaser);
+
+        for ($x = 0 ; $x < $allData ; $x++) {
+            for ($y = 2 ; $y < 5 ; $y++) {
+                $data[$x][$y] = $getPurchaser[$x][$y];                          //訂購資料 $data
+            }
+            $total = $total + $getPurchaser[$x][4];
+        }
+
+        $data[$allData][0] = " ";
+        $data[$allData][1] = "總金額";
+        $data[$allData][2] = $total;
+
+        function cleanData(&$str)
+        {
+            if($str == 't') $str = 'TRUE';
+            if($str == 'f') $str = 'FALSE';
+            if(preg_match("/^0/", $str) || preg_match("/^\+?\d{8,}$/", $str) || preg_match("/^\d{4}.\d{1,2}.\d{1,2}/", $str)) {
+              $str = "'$str";
+            }
+            if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
+            $str = mb_convert_encoding($str, 'BIG-5', 'UTF-8');                 //CSV編碼問題暫時使用BIG-5解決
+        }
+
+        // filename for download
+        $filename = "website_data_" . date('Ymd') . ".csv";
+
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: text/csv; charset=BIG-5");                        //BIG-5
+
+        $out = fopen("php://output", 'w');
+
+        $flag = false;
+        foreach($data as $row) {
+            if(!$flag) {
+                // display field/column names as first row
+                fputcsv($out, array_keys($row), ',', '"');
+                $flag = true;
+            }
+            array_walk($row, __NAMESPACE__ . '\cleanData');
+            fputcsv($out, array_values($row), ',', '"');
+        }
+
+        fclose($out);
+        exit;
     }
 
 }

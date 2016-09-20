@@ -293,7 +293,7 @@ class Bentodb
         return $result;
     }
 
-    public function deleteSingleItem($singleItemID)
+    public function deleteSingleItem($singleItemID)                             //餐點取消
     {
         $sql = "DELETE FROM `Purchaser` WHERE `ID` = :singleItemID";
         $stmt = $this->dbcon->prepare($sql);

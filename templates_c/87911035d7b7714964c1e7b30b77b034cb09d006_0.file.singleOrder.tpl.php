@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-19 04:28:17
+/* Smarty version 3.1.30, created on 2016-09-20 04:12:58
   from "/home/ubuntu/workspace/Bento/views/singleOrder.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57df6961566f16_15023677',
+  'unifunc' => 'content_57e0b74b004c03_38220319',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '87911035d7b7714964c1e7b30b77b034cb09d006' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/singleOrder.tpl',
-      1 => 1474259296,
+      1 => 1474344777,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57df6961566f16_15023677 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57e0b74b004c03_38220319 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -151,7 +151,7 @@ echo $_prefixVariable13;?>
                                         <td>
                                             <form action="cancelOrderItem" method="post">
                                                 <input type="hidden" name="orderId" value="<?php ob_start();
-echo $_smarty_tpl->tpl_vars['orderId']->value;
+echo $_smarty_tpl->tpl_vars['purchaser']->value[1];
 $_prefixVariable14=ob_get_clean();
 echo $_prefixVariable14;?>
 ">
@@ -160,7 +160,12 @@ echo $_smarty_tpl->tpl_vars['purchaser']->value[0];
 $_prefixVariable15=ob_get_clean();
 echo $_prefixVariable15;?>
 ">
-                                                <input type="submit" class="btn-primary" value="取消">
+                                                <input type="hidden" name="userId" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['purchaser']->value[5];
+$_prefixVariable16=ob_get_clean();
+echo $_prefixVariable16;?>
+">
+                                                <input type="submit" class="btn-danger" value="取消">
                                             </form>
                                         </td>
                                     </tr>
@@ -168,8 +173,8 @@ echo $_prefixVariable15;?>
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-$_prefixVariable16=ob_get_clean();
-echo $_prefixVariable16;?>
+$_prefixVariable17=ob_get_clean();
+echo $_prefixVariable17;?>
 
                                 </tbody>
                                 <table class="table table-bordered">
@@ -177,12 +182,20 @@ echo $_prefixVariable16;?>
                                         <th>總金額</th>
                                         <th><?php ob_start();
 echo $_smarty_tpl->tpl_vars['totalmoney']->value;
-$_prefixVariable17=ob_get_clean();
-echo $_prefixVariable17;?>
+$_prefixVariable18=ob_get_clean();
+echo $_prefixVariable18;?>
 </th>
                                     </tr>
                                 </table>
                             </div>
+                            <form action="outToExcel" method="post">
+                                <input type="hidden" name="mode" value="<?php ob_start();
+echo $_smarty_tpl->tpl_vars['orderData']->value[0];
+$_prefixVariable19=ob_get_clean();
+echo $_prefixVariable19;?>
+">
+                                <input type="submit" value="匯出Excel">
+                            </form></br>
                             <!-- Large modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">各品項統計</button>
 
@@ -206,27 +219,27 @@ echo $_prefixVariable17;?>
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['countByItem']->value, 'allItem');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['allItem']->value) {
-$_prefixVariable18=ob_get_clean();
-echo $_prefixVariable18;?>
+$_prefixVariable20=ob_get_clean();
+echo $_prefixVariable20;?>
 
                                                 <tr>
                                                     <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['allItem']->value[0];
-$_prefixVariable19=ob_get_clean();
-echo $_prefixVariable19;?>
+$_prefixVariable21=ob_get_clean();
+echo $_prefixVariable21;?>
 </td>
                                                     <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['allItem']->value[1];
-$_prefixVariable20=ob_get_clean();
-echo $_prefixVariable20;?>
+$_prefixVariable22=ob_get_clean();
+echo $_prefixVariable22;?>
 </td>
                                                 </tr>
                                                 <?php ob_start();
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-$_prefixVariable21=ob_get_clean();
-echo $_prefixVariable21;?>
+$_prefixVariable23=ob_get_clean();
+echo $_prefixVariable23;?>
 
                                             </tbody>
                                         </table>
@@ -252,44 +265,44 @@ echo $_prefixVariable21;?>
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['shopMenu']->value, 'foo');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['foo']->value) {
-$_prefixVariable22=ob_get_clean();
-echo $_prefixVariable22;?>
+$_prefixVariable24=ob_get_clean();
+echo $_prefixVariable24;?>
 
                                         <tr>
                                             <td><input type="checkbox" name="shopMenuId[]" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['foo']->value[0];
-$_prefixVariable23=ob_get_clean();
-echo $_prefixVariable23;?>
+$_prefixVariable25=ob_get_clean();
+echo $_prefixVariable25;?>
 "></td>
                                             <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['foo']->value[2];
-$_prefixVariable24=ob_get_clean();
-echo $_prefixVariable24;?>
+$_prefixVariable26=ob_get_clean();
+echo $_prefixVariable26;?>
 </td>
                                             <td><?php ob_start();
 echo $_smarty_tpl->tpl_vars['foo']->value[3];
-$_prefixVariable25=ob_get_clean();
-echo $_prefixVariable25;?>
+$_prefixVariable27=ob_get_clean();
+echo $_prefixVariable27;?>
 </td>
                                         </tr>
                                         <?php ob_start();
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
-$_prefixVariable26=ob_get_clean();
-echo $_prefixVariable26;?>
+$_prefixVariable28=ob_get_clean();
+echo $_prefixVariable28;?>
 
                                     </tbody>
                                 </table>
                                 <input type="hidden" name="orderId" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['orderId']->value;
-$_prefixVariable27=ob_get_clean();
-echo $_prefixVariable27;?>
+$_prefixVariable29=ob_get_clean();
+echo $_prefixVariable29;?>
 ">
                                 <input type="hidden" name="userId" value="<?php ob_start();
 echo $_smarty_tpl->tpl_vars['userId']->value;
-$_prefixVariable28=ob_get_clean();
-echo $_prefixVariable28;?>
+$_prefixVariable30=ob_get_clean();
+echo $_prefixVariable30;?>
 ">
                                 <input type="text" class="form-control" name="purchaser" placeholder="訂購人姓名"></br>
                                 <input type="button" onClick="check()" class="btn btn-primary" value="送出">

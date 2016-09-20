@@ -13,10 +13,11 @@ setInterval(function()
                             "<td>" + orderstatus[i][3] + "</td>" +
                             "<td>" + orderstatus[i][4] + "</td>" +
                             "<td>" +
-                                "<form action='cancelOrderItem' method='post' name='cancelfood'>" +
-                                    "<input type='hidden' name='orderId' value=" + $('#orderId').text() + ">" +
-                                    "<input type='hidden' name='singleItemID' value=" + orderstatus[i][0] +">" +
-                                    "<input type='submit' class='btn-primary' value='取消'>" +
+                                "<form action='cancelOrderItem' method='post'>" +
+                                    "<input type='hidden' name='orderId' value=" + orderstatus[i][1] + ">" +
+                                    "<input type='hidden' name='singleItemID' value=" + orderstatus[i][0] + ">" +
+                                    "<input type='hidden' name='userId' value=" + orderstatus[i][5] + ">" +
+                                    "<input type='submit' class='btn-danger' value='取消'>" +
                                 "</form>" +
                             "</td>" +
                             "</tr>";
@@ -37,10 +38,11 @@ setInterval(function()
                     "<tbody>" +
                         itemData +
                     "</tbody>" +
+
                     "<table class='table table-bordered'>" +
                         "<tr>" +
                             "<th>總金額</th>" +
-                            "<th>" + orderstatus[0][5] + "</th>" +
+                            "<th>" + orderstatus[0][6] + "</th>" +
                         "</tr>" +
                     "</table>" +
                 "</div>"
@@ -52,7 +54,7 @@ setInterval(function()
 setInterval(function()
 {
     $.ajax({
-        url: "/Bento/Home/renewItemCount?orderId=" + $('#hidden').text(),
+        url: "/Bento/Home/renewItemCount?orderId=" + $('#orderId').text(),
         success: function(data) {
             var singleitem = JSON.parse(data);
             var itemcount = singleitem.length;

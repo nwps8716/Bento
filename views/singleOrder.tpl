@@ -62,9 +62,10 @@
                                         <td>{{$purchaser[4]}}</td>
                                         <td>
                                             <form action="cancelOrderItem" method="post">
-                                                <input type="hidden" name="orderId" value="{{$orderId}}">
+                                                <input type="hidden" name="orderId" value="{{$purchaser[1]}}">
                                                 <input type="hidden" name="singleItemID" value="{{$purchaser[0]}}">
-                                                <input type="submit" class="btn-primary" value="取消">
+                                                <input type="hidden" name="userId" value="{{$purchaser[5]}}">
+                                                <input type="submit" class="btn-danger" value="取消">
                                             </form>
                                         </td>
                                     </tr>
@@ -77,6 +78,10 @@
                                     </tr>
                                 </table>
                             </div>
+                            <form action="outToExcel" method="post">
+                                <input type="hidden" name="mode" value="{{$orderData[0]}}">
+                                <input type="submit" value="匯出Excel">
+                            </form></br>
                             <!-- Large modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">各品項統計</button>
 
