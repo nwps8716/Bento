@@ -261,7 +261,23 @@ class Bentodb
         return $result;
     }
 
-    public function purchaserByOrderId($orderId)
+    public function selfMeals($orderId, $userId)                                //顯示單筆訂單一般使用者自己的訂餐狀況
+    {
+        $sql = "SELECT * FROM `Purchaser` WHERE `orderId` = :orderId AND `userId` = :userId";
+        $stmt = $this->dbcon->prepare($sql);
+
+        $stmt->bindValue(':orderId', $orderId);
+        $stmt->bindValue(':userId', $userId);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        $this->dbpdo->closeConnection();
+
+        return $result;
+    }
+
+    public function purchaserByOrderId($orderId)                                //顯示單筆訂單所有使用者的訂餐資料
     {
         $sql = "SELECT * FROM `Purchaser` WHERE `orderId` = :orderId";
         $stmt = $this->dbcon->prepare($sql);

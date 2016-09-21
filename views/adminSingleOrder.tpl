@@ -14,7 +14,7 @@
         {{/if}}
     </head>
     <body>
-        {{include file = "views/navbar.tpl"}}
+        {{include file = "views/adminNavbar.tpl"}}
 
         <div class="container mar-top150">
             <div class="row">
@@ -42,7 +42,7 @@
                                  </tbody>
                             </table>
                         </div>
-                        <div id="left">
+                        <div id="adminleft">
                             <div id="list">                                     <!-- 左邊區塊-訂購狀況表 -->
                             <legend class="test-align-center">訂購狀況</legend>
                             <table class="table table-bordered">
@@ -51,7 +51,6 @@
                                         <th>訂購人</th>
                                         <th>訂購項目</th>
                                         <th>單價</th>
-                                        <th>取消餐點</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,47 +59,51 @@
                                         <td>{{$purchaser[2]}}</td>
                                         <td>{{$purchaser[3]}}</td>
                                         <td>{{$purchaser[4]}}</td>
-                                        <td>
-                                            <form action="cancelOrderItem" method="post">
-                                                <input type="hidden" name="orderId" value="{{$purchaser[1]}}">
-                                                <input type="hidden" name="singleItemID" value="{{$purchaser[0]}}">
-                                                <input type="hidden" name="userId" value="{{$purchaser[5]}}">
-                                                <input type="submit" class="btn-danger" value="取消">
-                                            </form>
-                                        </td>
                                     </tr>
                                     {{/foreach}}
                                 </tbody>
-                            </table>
-                            </div>
-                        </div>
-
-                        <div id="right">                                        <!-- 右邊區塊-下單區塊 -->
-                            <legend class="test-align-center">下單區</legend>
-                            <form action="uploadPurchaser" method="post" name="reg">
                                 <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>選購</th>
-                                            <th>餐點</th>
-                                            <th>價格</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{foreach from = $shopMenu item = foo}}
-                                        <tr>
-                                            <td><input type="checkbox" name="shopMenuId[]" value="{{$foo[0]}}"></td>
-                                            <td>{{$foo[2]}}</td>
-                                            <td>{{$foo[3]}}</td>
-                                        </tr>
-                                        {{/foreach}}
-                                    </tbody>
+                                    <tr>
+                                        <th>總金額</th>
+                                        <th>{{$totalmoney}}</th>
+                                    </tr>
                                 </table>
-                                <input type="hidden" name="orderId" value="{{$orderId}}">
-                                <input type="hidden" name="userId" value="{{$userId}}">
-                                <input type="hidden" name="userName" value="{{$userName}}">
-                                <input type="submit" class="btn btn-primary" value="送出">
-                            </form>
+                            </div>
+                            <form action="outToExcel" method="post">
+                                <input type="hidden" name="mode" value="{{$orderData[0]}}">
+                                <input type="submit" value="匯出Excel">
+                            </form></br>
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">各品項統計</button>
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content" id="listbytotal">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">各品項總數量</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>品項</th>
+                                                    <th>數量</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{foreach from = $countByItem item = allItem}}
+                                                <tr>
+                                                    <td>{{$allItem[0]}}</td>
+                                                    <td>{{$allItem[1]}}</td>
+                                                </tr>
+                                                {{/foreach}}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="clearboth"></div>

@@ -138,6 +138,13 @@
   border-radius: 10px;
 }
 
+#adminleft
+{
+  float:left;
+  width:100%;
+  border-radius: 10px;
+}
+
 .test-align-center
 {
   text-align: center;

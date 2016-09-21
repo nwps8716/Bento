@@ -1,27 +1,27 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-20 13:52:56
+/* Smarty version 3.1.30, created on 2016-09-20 17:39:36
   from "/home/ubuntu/workspace/Bento/views/newOrderPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57e0ceb81124d7_50155413',
+  'unifunc' => 'content_57e103d8129df1_21796177',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'da2edaf562d9bf9f8fb14d49a1e146f1ec8db35b' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/newOrderPage.tpl',
-      1 => 1474350652,
+      1 => 1474364374,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:views/navbar.tpl' => 1,
+    'file:views/adminNavbar.tpl' => 1,
   ),
 ),false)) {
-function content_57e0ceb81124d7_50155413 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57e103d8129df1_21796177 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +51,7 @@ echo $_prefixVariable2;?>
     </head>
     <body>
         <?php ob_start();
-$_smarty_tpl->_subTemplateRender("file:views/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+$_smarty_tpl->_subTemplateRender("file:views/adminNavbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_prefixVariable3=ob_get_clean();
 echo $_prefixVariable3;?>
 
@@ -94,10 +94,6 @@ echo $_smarty_tpl->tpl_vars['nowTime']->value;
 $_prefixVariable7=ob_get_clean();
 echo $_prefixVariable7;?>
 " max="2018-11-16T21:25:33">
-        				</div>
-        				<div class="form-group">
-                			<label>負責人</label>
-        					<input type="text" class="form-control" name="principal" placeholder="貝克漢">
         				</div>
         				<div class="form-group">
                 			<label>備註</label>

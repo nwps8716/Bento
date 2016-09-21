@@ -68,10 +68,6 @@ function order_check()
 	{
 		alert("請填寫收單時間");
 	}
-	else if(reg.principal.value == "")
-	{
-		alert("請填寫負責人");
-	}
 	else reg.submit();
 }
 

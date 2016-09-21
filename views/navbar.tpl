@@ -9,9 +9,6 @@
                     <a>Hello {{$userName}}</a>
                 </li>
                 <li class="new-li">
-                    <a href="/Bento/Home/newOrderPage">開單</a>
-                </li>
-                <li class="new-li">
                     <a href="/Bento/Home/userPage">所有訂單</a>
                 </li>
                 <li class="new-li">

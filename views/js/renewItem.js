@@ -91,12 +91,3 @@ setInterval(function()
         }
     })
 },1000)
-
-function check()
-{
-	if (reg.purchaser.value == "")
-	{
-		alert("請填寫訂購人");
-	}
-	else reg.submit();
-}

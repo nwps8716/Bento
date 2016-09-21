@@ -6,7 +6,8 @@
         <div id=navbar class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="new-li"><a>管理員 {{$userName}}</a></li>
-                <li class="new-li"><a href="#">訂單資料</a></li>
+                <li class="new-li"><a href="/Bento/Admin/newOrderPage">開單</a></li>
+                <li class="new-li"><a href="/Bento/Admin/adminPage">所有訂單</a></li>
                 <li class="new-li"><a href="#">店家資料</a></li>
                 <li class="new-li"><a href="/Bento/Admin/addShopPage">新增店家</a></li>
                 <li class="new-li"><a href="/Bento/Member/signOut?signOut=1">登出</a></li>

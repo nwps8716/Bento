@@ -62,100 +62,14 @@ class HomeController extends Controller
         echo json_encode($order);
     }
 
-    public function cancelOrder()                                               //刪除已開單資料
-    {
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
-
-        $orderId = $_POST['orderId'];
-        $userId = $_POST['userId'];
-
-        if ($userId == $_SESSION['userId']) {
-            $result = $usedb->deleteOrder($orderId, $userId);
-            $_SESSION['alert'] = "刪單成功";
-            header("Location:/Bento/Home/userPage");
-            exit;
-        } else {
-            $_SESSION['alert'] = "使用者ID錯誤";
-            header("Location:/Bento/Home/userPage");
-            exit;
-        }
-    }
-
-    public function newOrderPage()
-    {
-        $this->checkSession();
-
-        date_default_timezone_set('Asia/Taipei');
-        $nowTime1 = date("Y-m-d");
-        $nowTime2 = date("H:i:s");
-        $nowTime = $nowTime1 . "T" . $nowTime2;
-
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
-
-        $result = $usedb->getShopName();
-        $num = count($result);                                                  //取shopName的筆數
-
-        for ($i = 0 ; $i < $num ; $i++) {
-            $shopName[$i] = $result[$i][0];
-        }
-        $this->smarty->assign('message', $_SESSION['alert']);
-        unset($_SESSION['alert']);
-        $this->smarty->assign('nowTime', $nowTime);
-        $this->smarty->assign('shopName', $shopName);                           //將shopName資料回傳到開單頁面
-        $this->smarty->assign('userName', $_SESSION['userName']);
-        $this->smarty->assign('userId', $_SESSION['userId']);
-        $this->smarty->display('../Bento/views/newOrderPage.tpl');
-    }
-
-    public function uploadOrder()
-    {
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
-
-        $userName = $_POST['userName'];
-        $shopName = $_POST['shopSelect'];
-        $endTime = $_POST['endTime'];
-        $principal = $_POST['principal'];
-        $remark = $_POST['remark'];
-        $userId = $_POST['userId'];
-
-        if (strtotime($endTime) > strtotime('now')) {
-            $check = $usedb->checkRepeatOrder($shopName, $principal);           //確認訂單有無重複，店名AND負責人查詢
-
-            if ($check == NULL) {
-                $shopPhone = $usedb->getShopPhone($shopName);
-                $result = $usedb->insertAllOrder($shopName, $shopPhone, $endTime, $principal, $remark, $userId);
-
-                if ($result > 0) {
-                    $_SESSION['alert'] = "開單成功";
-                    header("Location:/Bento/Home/userPage");
-                    exit;
-                } else {
-                    $_SESSION['alert'] = "開單失敗";
-                    header("Location:/Bento/Home/newOrderPage");
-                    exit;
-                }
-            } else {
-                $_SESSION['alert'] = "訂單重複";
-                header("Location:/Bento/Home/newOrderPage");
-                exit;
-            }
-        } else {
-            $_SESSION['alert'] = "收單時間錯誤";
-            header("Location:/Bento/Home/newOrderPage");
-            exit;
-        }
-    }
-
     public function singleOrder()                                               //主要功能:個別訂單頁面的所有資料呈現。
     {
         $this->checkSession();
         $this->model("Bentodb");
         $usedb = new Bentodb();
 
-        $orderId = $_GET["orderId"];
+        $orderId = $_GET['orderId'];
+        $userId = $_SESSION['userId'];
 
         $result = $usedb->getSingleOrder($orderId);
 
@@ -168,24 +82,17 @@ class HomeController extends Controller
             }
         }
 
-        $getPurchaser = $usedb->purchaserByOrderId($orderId);
+        $getPurchaser = $usedb->selfMeals($orderId, $userId);
         $allData = count($getPurchaser);
 
         for ($x = 0 ; $x < $allData ; $x++) {
             for ($y = 0 ; $y < 6 ; $y++) {
                 $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
             }
-            $total = $total + $getPurchaser[$x][4];                             //總金額
         }
 
         $diffItem = $usedb->differentItem($orderId);
         $diffcount = count($diffItem);
-
-        for ($d = 0 ; $d < $diffcount ; $d++) {                                 //各品項統計
-            $singleItem[$d] = $usedb->countByItem($orderId, $diffItem[$d][0]);
-            $countByItem[$d][0] = $diffItem[$d][0];                             //各品項名稱
-            $countByItem[$d][1] = count($singleItem[$d]);                       //各品項數量
-        }
 
         $this->smarty->assign('message', $_SESSION['alert']);
         unset($_SESSION['alert']);
@@ -193,77 +100,81 @@ class HomeController extends Controller
         $this->smarty->assign('orderData', $result);
         $this->smarty->assign('shopMenu', $shopMenu);
         $this->smarty->assign('allPurchaser', $allPurchaser);
-        $this->smarty->assign('totalmoney', $total);
-        $this->smarty->assign('countByItem', $countByItem);
         $this->smarty->assign('userName', $_SESSION['userName']);
         $this->smarty->assign('userId', $_SESSION['userId']);
         $this->smarty->display('../Bento/views/singleOrder.tpl');
     }
 
-    public function renewOrderStatus()                                          //訂購狀況AJAX資料更新
-    {
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
+    // public function renewOrderStatus()                                          //訂購狀況AJAX資料更新
+    // {
+    //     $this->model("Bentodb");
+    //     $usedb = new Bentodb();
 
-        $orderId = $_GET['orderId'];
+    //     $orderId = $_GET['orderId'];
 
-        $getPurchaser = $usedb->purchaserByOrderId($orderId);
-        $allData = count($getPurchaser);
+    //     $getPurchaser = $usedb->purchaserByOrderId($orderId);
+    //     $allData = count($getPurchaser);
 
-        for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 6 ; $y++) {
-                $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
-            }
-            $total = $total + $getPurchaser[$x][4];                             //總金額
-        }
+    //     for ($x = 0 ; $x < $allData ; $x++) {
+    //         for ($y = 0 ; $y < 6 ; $y++) {
+    //             $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
+    //         }
+    //         $total = $total + $getPurchaser[$x][4];                             //總金額
+    //     }
 
-        for ($d = 0 ; $d < $allData ; $d++) {
-            $allPurchaser[$d][6] = $total;
-        }
+    //     for ($d = 0 ; $d < $allData ; $d++) {
+    //         $allPurchaser[$d][6] = $total;
+    //     }
 
-        echo json_encode($allPurchaser);
-    }
+    //     echo json_encode($allPurchaser);
+    // }
 
-    public function renewItemCount()                                            //品項統計AJAX資料更新
-    {
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
+    // public function renewItemCount()                                            //品項統計AJAX資料更新
+    // {
+    //     $this->model("Bentodb");
+    //     $usedb = new Bentodb();
 
-        $orderId = $_GET['orderId'];
+    //     $orderId = $_GET['orderId'];
 
-        $diffItem = $usedb->differentItem($orderId);
-        $diffcount = count($diffItem);
+    //     $diffItem = $usedb->differentItem($orderId);
+    //     $diffcount = count($diffItem);
 
-        for ($d = 0 ; $d < $diffcount ; $d++) {                                 //各品項統計
-            $singleItem[$d] = $usedb->countByItem($orderId, $diffItem[$d][0]);
-            $countByItem[$d][0] = $diffItem[$d][0];                             //各品項名稱
-            $countByItem[$d][1] = count($singleItem[$d]);                       //各品項數量
-        }
+    //     for ($d = 0 ; $d < $diffcount ; $d++) {                                 //各品項統計
+    //         $singleItem[$d] = $usedb->countByItem($orderId, $diffItem[$d][0]);
+    //         $countByItem[$d][0] = $diffItem[$d][0];                             //各品項名稱
+    //         $countByItem[$d][1] = count($singleItem[$d]);                       //各品項數量
+    //     }
 
-        echo json_encode($countByItem);
-    }
+    //     echo json_encode($countByItem);
+    // }
 
     public function uploadPurchaser()
     {
         $this->model("Bentodb");
         $usedb = new Bentodb();
-
         $orderId = $_POST['orderId'];
-        $userId = $_POST['userId'];
-        $purchaser = $_POST['purchaser'];
-        $shopMenuId = $_POST['shopMenuId'];
-        $num = count($shopMenuId);
 
-        for ($i = 0 ; $i < $num ; $i++) {
-            $result[$i] = $usedb->getShopMenuById($shopMenuId[$i]);
-            $item = $result[$i][2];
-            $price = $result[$i][3];
-            $insert = $usedb->insertPurchaser($orderId, $purchaser, $item, $price, $userId);
+        if ($_POST['shopMenuId'] != "") {
+            $userId = $_POST['userId'];
+            $purchaser = $_POST['userName'];
+            $shopMenuId = $_POST['shopMenuId'];
+            $num = count($shopMenuId);
+
+            for ($i = 0 ; $i < $num ; $i++) {
+                $result[$i] = $usedb->getShopMenuById($shopMenuId[$i]);
+                $item = $result[$i][2];
+                $price = $result[$i][3];
+                $insert = $usedb->insertPurchaser($orderId, $purchaser, $item, $price, $userId);
+            }
+
+            $_SESSION['alert'] = "訂購成功";
+            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+            exit;
+        } else {
+            $_SESSION['alert'] = "請選擇餐點";
+            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+            exit;
         }
-
-        $_SESSION['alert'] = "訂購成功";
-        header("Location:/Bento/Home/singleOrder?orderId=$orderId");
-        exit;
     }
 
     public function cancelOrderItem()                                           //取消餐點功能
@@ -277,69 +188,21 @@ class HomeController extends Controller
 
         if ($postUserId == $_SESSION['userId']) {
             $result = $usedb->deleteSingleItem($singleItemID);
-            $_SESSION['alert'] = "取消成功";
-            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
-            exit;
+
+            if ($result == TRUE) {
+                $_SESSION['alert'] = "取消成功";
+                header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+                exit;
+            } else {
+                $_SESSION['alert'] = "取消失敗";
+                header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+                exit;
+            }
         } else {
             $_SESSION['alert'] = "使用者ID錯誤";
-            header("Location:/Bento/Home/singleOrder?orderId=$orderId");
+            header("Location:/Bento/Member/signIn");
             exit;
         }
-    }
-
-    public function outToExcel()                                                //撈資料庫資料，轉出Excel檔功能
-    {
-        $this->model("Bentodb");
-        $usedb = new Bentodb();
-
-        $orderId = $_POST['mode'];
-
-        $getPurchaser = $usedb->purchaserByOrderId($orderId);
-        $allData = count($getPurchaser);
-
-        for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 2 ; $y < 5 ; $y++) {
-                $data[$x][$y] = $getPurchaser[$x][$y];                          //訂購資料 $data
-            }
-            $total = $total + $getPurchaser[$x][4];
-        }
-
-        $data[$allData][0] = " ";
-        $data[$allData][1] = "總金額";
-        $data[$allData][2] = $total;
-
-        function cleanData(&$str)
-        {
-            if($str == 't') $str = 'TRUE';
-            if($str == 'f') $str = 'FALSE';
-            if(preg_match("/^0/", $str) || preg_match("/^\+?\d{8,}$/", $str) || preg_match("/^\d{4}.\d{1,2}.\d{1,2}/", $str)) {
-              $str = "'$str";
-            }
-            if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
-            $str = mb_convert_encoding($str, 'BIG-5', 'UTF-8');                 //CSV編碼問題暫時使用BIG-5解決
-        }
-
-        // filename for download
-        $filename = "website_data_" . date('Ymd') . ".csv";
-
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-        header("Content-Type: text/csv; charset=BIG-5");                        //BIG-5
-
-        $out = fopen("php://output", 'w');
-
-        $flag = false;
-        foreach($data as $row) {
-            if(!$flag) {
-                // display field/column names as first row
-                fputcsv($out, array_keys($row), ',', '"');
-                $flag = true;
-            }
-            array_walk($row, __NAMESPACE__ . '\cleanData');
-            fputcsv($out, array_values($row), ',', '"');
-        }
-
-        fclose($out);
-        exit;
     }
 
 }

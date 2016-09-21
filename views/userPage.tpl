@@ -7,7 +7,6 @@
         <link href="../views/css/bootstrap.min.css" rel="stylesheet">
         <link href="../views/css/main.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="../views/js/renewAllOrder.js"></script>
         {{if isset($message)}}
             <script> alert('{$message}'); </script>
         {{/if}}
@@ -28,7 +27,6 @@
                                 <th>電話</th>
                                 <th>收單時間</th>
                                 <th>負責人</th>
-                                <th>刪單</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,13 +37,6 @@
                                 <td>{{$foo[2]}}</td>
                                 <td>{{$foo[3]}}</td>
                                 <td>{{$foo[4]}}</td>
-                                <td>
-                                    <form action="cancelOrder" method="post">
-                                        <input type="hidden" name="orderId" value="{{$foo[0]}}">
-                                        <input type="hidden" name="userId" value="{{$foo[6]}}">
-                                        <input type="submit" class="btn-danger" value="刪除">
-                                    </form>
-                                </td>
                             </tr>
                             {{/foreach}}
                          </tbody>
