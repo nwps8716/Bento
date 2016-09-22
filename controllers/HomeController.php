@@ -68,41 +68,80 @@ class HomeController extends Controller
         $this->model("Bentodb");
         $usedb = new Bentodb();
 
-        $orderId = $_GET['orderId'];
-        $userId = $_SESSION['userId'];
+        if (!isset($_GET['orderId'])) {
+            header("Location:/Bento/Home/userPage");
+            exit;
+        } else {
+            $orderId = intval($_GET['orderId']);
+            $result = $usedb->getSingleOrder($orderId);
 
-        $result = $usedb->getSingleOrder($orderId);
-
-        $getMenu = $usedb->getShopMenu($result['shopName']);
-        $num = count($getMenu);
-
-        for ($i = 0 ; $i < $num ; $i++) {
-            for ($j = 0 ; $j < 4 ; $j++) {
-                $shopMenu[$i][$j] = $getMenu[$i][$j];                           //菜單資料
+            if (is_string($orderId)) {
+                header("Location:/Bento/Home/userPage");
+                exit;
+            } else if ($orderId <= 0) {
+                header("Location:/Bento/Home/userPage");
+                exit;
+            } else if ($result == NULL) {
+                header("Location:/Bento/Home/userPage");
+                exit;
             }
-        }
 
-        $getPurchaser = $usedb->selfMeals($orderId, $userId);
-        $allData = count($getPurchaser);
+            $userId = $_SESSION['userId'];
 
-        for ($x = 0 ; $x < $allData ; $x++) {
-            for ($y = 0 ; $y < 6 ; $y++) {
-                $allPurchaser[$x][$y] = $getPurchaser[$x][$y];                  //訂購資料
+            $getMenu = $usedb->getShopMenu($result['shopName']);
+            $num = count($getMenu);
+
+            for ($i = 0 ; $i < $num ; $i++) {
+                for ($j = 0 ; $j < 4 ; $j++) {
+                    $shopMenu[$i][$j] = $getMenu[$i][$j];                           //菜單資料
+                }
             }
+
+            $getPurchaser = $usedb->selfMeals($orderId, $userId);
+            $allData = count($getPurchaser);
+
+            $per = 2;
+            $pages = ceil($allData/$per);
+
+            if (!isset($_GET['page'])) {
+                $page = 1;
+
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                }
+            } else {
+                $page = intval($_GET["page"]);
+
+                if (is_string($page)) {
+                    $page = 1;
+                } else if ($page <= 0) {
+                    $page = 1;
+                } else if ($page > $pages) {
+                    $page = $pages;
+                }
+            }
+            $start = ($page-1) * $per;
+
+            $orderBy = $usedb->orderByPage($orderId, $userId, $start, $per);
+
+            for ($x = 0 ; $x < $allData ; $x++) {
+                for ($y = 0 ; $y < 6 ; $y++) {
+                    $allPurchaser[$x][$y] = $orderBy[$x][$y];                  //訂購資料
+                }
+            }
+
+            $this->smarty->assign('message', $_SESSION['alert']);
+            unset($_SESSION['alert']);
+            $this->smarty->assign('orderId', $orderId);
+            $this->smarty->assign('orderData', $result);
+            $this->smarty->assign('shopMenu', $shopMenu);
+            $this->smarty->assign('allPurchaser', $allPurchaser);
+            $this->smarty->assign('allPage', $pages);
+            $this->smarty->assign('dataCount', count($orderBy));
+            $this->smarty->assign('userName', $_SESSION['userName']);
+            $this->smarty->assign('userId', $_SESSION['userId']);
+            $this->smarty->display('../Bento/views/singleOrder.tpl');
         }
-
-        $diffItem = $usedb->differentItem($orderId);
-        $diffcount = count($diffItem);
-
-        $this->smarty->assign('message', $_SESSION['alert']);
-        unset($_SESSION['alert']);
-        $this->smarty->assign('orderId', $orderId);
-        $this->smarty->assign('orderData', $result);
-        $this->smarty->assign('shopMenu', $shopMenu);
-        $this->smarty->assign('allPurchaser', $allPurchaser);
-        $this->smarty->assign('userName', $_SESSION['userName']);
-        $this->smarty->assign('userId', $_SESSION['userId']);
-        $this->smarty->display('../Bento/views/singleOrder.tpl');
     }
 
     // public function renewOrderStatus()                                          //訂購狀況AJAX資料更新

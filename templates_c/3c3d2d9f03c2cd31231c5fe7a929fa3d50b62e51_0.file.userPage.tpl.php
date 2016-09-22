@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-09-20 08:45:38
+/* Smarty version 3.1.30, created on 2016-09-21 04:13:31
   from "/home/ubuntu/workspace/Bento/views/userPage.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_57e0f732aaf390_71739009',
+  'unifunc' => 'content_57e208ebede866_64427440',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3c3d2d9f03c2cd31231c5fe7a929fa3d50b62e51' => 
     array (
       0 => '/home/ubuntu/workspace/Bento/views/userPage.tpl',
-      1 => 1474361138,
+      1 => 1474430035,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/navbar.tpl' => 1,
   ),
 ),false)) {
-function content_57e0f732aaf390_71739009 (Smarty_Internal_Template $_smarty_tpl) {
+function content_57e208ebede866_64427440 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,6 +79,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['foo']->value) {
 $_prefixVariable4=ob_get_clean();
 echo $_prefixVariable4;?>
 
+                            <form action="singleOrder">
                             <tr>
                                 <td><a href="/Bento/Home/singleOrder?orderId=<?php ob_start();
 echo $_smarty_tpl->tpl_vars['foo']->value[0];
@@ -106,6 +107,7 @@ $_prefixVariable9=ob_get_clean();
 echo $_prefixVariable9;?>
 </td>
                             </tr>
+                            </form>
                             <?php ob_start();
 }
 }

@@ -31,6 +31,7 @@
                         </thead>
                         <tbody>
                             {{foreach from = $order item = foo}}
+                            <form action="singleOrder">
                             <tr>
                                 <td><a href="/Bento/Home/singleOrder?orderId={{$foo[0]}}">訂購</a></td>
                                 <td>{{$foo[1]}}</td>
@@ -38,6 +39,7 @@
                                 <td>{{$foo[3]}}</td>
                                 <td>{{$foo[4]}}</td>
                             </tr>
+                            </form>
                             {{/foreach}}
                          </tbody>
                     </table>

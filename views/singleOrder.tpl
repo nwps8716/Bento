@@ -44,34 +44,43 @@
                         </div>
                         <div id="left">
                             <div id="list">                                     <!-- 左邊區塊-訂購狀況表 -->
-                            <legend class="test-align-center">訂購狀況</legend>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>訂購人</th>
-                                        <th>訂購項目</th>
-                                        <th>單價</th>
-                                        <th>取消餐點</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{foreach from = $allPurchaser item = purchaser}}
-                                    <tr>
-                                        <td>{{$purchaser[2]}}</td>
-                                        <td>{{$purchaser[3]}}</td>
-                                        <td>{{$purchaser[4]}}</td>
-                                        <td>
-                                            <form action="cancelOrderItem" method="post">
-                                                <input type="hidden" name="orderId" value="{{$purchaser[1]}}">
-                                                <input type="hidden" name="singleItemID" value="{{$purchaser[0]}}">
-                                                <input type="hidden" name="userId" value="{{$purchaser[5]}}">
-                                                <input type="submit" class="btn-danger" value="取消">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    {{/foreach}}
-                                </tbody>
-                            </table>
+                                <legend class="test-align-center">訂購狀況</legend>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>訂購人</th>
+                                            <th>訂購項目</th>
+                                            <th>單價</th>
+                                            <th>取消餐點</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{for $single = 0 to $dataCount-1}}
+                                        <tr>
+                                            <td>{{$allPurchaser[$single][2]}}</td>
+                                            <td>{{$allPurchaser[$single][3]}}</td>
+                                            <td>{{$allPurchaser[$single][4]}}</td>
+                                            <td>
+                                                <form action="cancelOrderItem" method="post">
+                                                    <input type="hidden" name="orderId" value="{{$allPurchaser[$single][1]}}">
+                                                    <input type="hidden" name="singleItemID" value="{{$allPurchaser[$single][0]}}">
+                                                    <input type="hidden" name="userId" value="{{$allPurchaser[$single][5]}}">
+                                                    <input type="submit" class="btn-danger" value="取消">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {{/for}}
+                                    </tbody>
+                                </table>
+                                <div class="col-lg-12 text-center">
+                                    <ul class="pager">
+                                        <li>
+                                            {{for $page = 1 to $allPage}}
+                                            <a href="/Bento/Home/singleOrder?orderId={{$orderData[0]}}&page={{$page}}">{{$page}}</a>
+                                            {{/for}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 

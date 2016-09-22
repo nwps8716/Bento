@@ -277,6 +277,24 @@ class Bentodb
         return $result;
     }
 
+    public function orderByPage($orderId, $userId, $start, $per)
+    {
+        $sql = "SELECT * FROM `Purchaser` WHERE `orderId` = :orderId AND `userId` = :userId ORDER BY `ID` LIMIT :start, :per";
+        $stmt = $this->dbcon->prepare($sql);
+
+        $stmt->bindValue(':orderId', $orderId);
+        $stmt->bindValue(':userId', $userId);
+        $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+        $stmt->bindValue(':per', $per, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        $this->dbpdo->closeConnection();
+
+        return $result;
+    }
+
     public function purchaserByOrderId($orderId)                                //顯示單筆訂單所有使用者的訂餐資料
     {
         $sql = "SELECT * FROM `Purchaser` WHERE `orderId` = :orderId";
